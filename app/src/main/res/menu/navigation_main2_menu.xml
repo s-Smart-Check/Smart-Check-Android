@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:title="이전 출결 확인" />
+        android:id="@+id/navigation_calendar"
+        android:title="날짜 별 출결 확인" />
     <item
+        android:id="@+id/navigation_attend_check"
         android:title="출결 확인" />
     <item
+        android:id="@+id/navigation_seat_away"
         android:title="자리 비움" />
 </menu>

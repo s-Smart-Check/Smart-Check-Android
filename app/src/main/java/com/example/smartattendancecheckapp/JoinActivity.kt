@@ -7,9 +7,10 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.example.smartattendancecheckapp.databinding.ActivityJoinBinding
 
-private lateinit var binding: ActivityJoinBinding
-
 class JoinActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityJoinBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_join)

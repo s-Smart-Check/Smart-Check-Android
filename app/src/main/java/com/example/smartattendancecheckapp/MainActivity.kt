@@ -16,9 +16,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-//        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_init) as NavHostFragment
-//        val navController = navHostFragment.navController
-
         // 회원 가입 버튼 클릭
         binding.btnJoin.setOnClickListener {
             val intent = Intent(this, JoinActivity::class.java)

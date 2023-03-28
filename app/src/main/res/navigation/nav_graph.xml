@@ -2,4 +2,21 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph" />
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/navigation_attend_check">
+    <fragment
+        android:id="@+id/navigation_attend_check"
+        android:name="com.example.smartattendancecheckapp.AttendCheckFragment"
+        android:label="AttendCheckFragment"
+        tools:layout="@layout/fragment_attend_check"/>
+    <fragment
+        android:id="@+id/navigation_calendar"
+        android:name="com.example.smartattendancecheckapp.CalendarCheckFragment"
+        android:label="CalendarCheckFragment"
+        tools:layout="@layout/fragment_calendar_check"/>
+    <fragment
+        android:id="@+id/navigation_seat_away"
+        android:name="com.example.smartattendancecheckapp.SeatAwayFragment"
+        android:label="SeatAwayFragment"
+        tools:layout="@layout/fragment_seat_away"/>
+</navigation>
