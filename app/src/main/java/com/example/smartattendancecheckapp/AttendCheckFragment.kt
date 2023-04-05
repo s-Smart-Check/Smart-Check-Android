@@ -6,6 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.smartattendancecheckapp.databinding.FragmentAttendCheckBinding
+import com.example.smartattendancecheckapp.network.RetrofitClient.retrofitService
+import retrofit2.Call
+import retrofit2.Response
+import javax.security.auth.callback.Callback
 
 class AttendCheckFragment : Fragment() {
 
@@ -24,6 +28,7 @@ class AttendCheckFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.lifecycleOwner = viewLifecycleOwner
+
     }
 
 
