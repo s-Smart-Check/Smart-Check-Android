@@ -25,29 +25,25 @@ class LoginActivity : AppCompatActivity() {
 
         // 로그인 버튼 클릭 시
         binding.btnLoginLogin.setOnClickListener {
+            // 입력 값이 있는 경우
             if (binding.edtLoginId.text.toString() != "" && binding.edtLoginPassword.text.toString() != "") {
 
                 retrofitService.getTestList().enqueue(object : retrofit2.Callback<testList> {
+                    // 정상적으로 응답이 온 경우
                     override fun onResponse(call: Call<testList>, response: Response<testList>) {
-//                binding.testText.setText("성공!!")
-//                통신 성공
-
+                        Toast.makeText(this@LoginActivity, "로그인 성공", Toast.LENGTH_SHORT).show()
+                        val intent = Intent(this@LoginActivity, MainActivity2::class.java)
+                        startActivity(intent)
                     }
-
+                    // 통신에 실패한 경우
                     override fun onFailure(call: Call<testList>, t: Throwable) {
-//                binding.testText.setText("실패!!")
-//                통신 실패
+                        Toast.makeText(this@LoginActivity, "로그인 실패", Toast.LENGTH_SHORT).show()
                     }
-
                 })
 
-                // TODO( "로그인 확인 하고" )
-                val intent = Intent(this, MainActivity2::class.java)
-                startActivity(intent)
             }
-            else {
-                Toast.makeText(this@LoginActivity, "아이디, 비밀번호 입력하세요", Toast.LENGTH_SHORT).show()
-            }
+            // 입력 값이 없는 경우
+            else { Toast.makeText(this@LoginActivity, "아이디, 비밀번호 입력하세요", Toast.LENGTH_SHORT).show() }
         }
     }
 }

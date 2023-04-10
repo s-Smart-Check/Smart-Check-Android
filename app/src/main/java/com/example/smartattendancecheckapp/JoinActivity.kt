@@ -6,6 +6,9 @@ import android.util.Log
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.example.smartattendancecheckapp.databinding.ActivityJoinBinding
+import com.example.smartattendancecheckapp.network.RetrofitClient.retrofitService
+import retrofit2.Call
+import retrofit2.Response
 
 class JoinActivity : AppCompatActivity() {
 
@@ -17,9 +20,20 @@ class JoinActivity : AppCompatActivity() {
 
         binding.btnJoinLogin.setOnClickListener {
             if(binding.edtJoinId.text.toString() != "" && binding.edtJoinPassword.text.toString() != "") {
-                Log.d("아이디 확인", binding.edtJoinId.text.toString())
-                Toast.makeText(this@JoinActivity, "회원 가입 완료", Toast.LENGTH_SHORT).show()
-                finish()
+
+                retrofitService.getTestList().enqueue(object : retrofit2.Callback<testList> {
+                    override fun onResponse(call: Call<testList>, response: Response<testList>) {
+//                      통신 성공
+                        Toast.makeText(this@JoinActivity, "회원가입 성공", Toast.LENGTH_SHORT).show()
+                        finish()
+                    }
+
+                    override fun onFailure(call: Call<testList>, t: Throwable) {
+//                      통신 실패
+                        Toast.makeText(this@JoinActivity, "회원가입 실패", Toast.LENGTH_SHORT).show()
+                    }
+
+                })
             }
             else {
                 Toast.makeText(this@JoinActivity, "아이디, 비밀번호 입력하세요", Toast.LENGTH_SHORT).show()

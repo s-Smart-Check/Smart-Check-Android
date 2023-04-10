@@ -50,6 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:hint="비밀 번호"
+            android:inputType="textPassword"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_join_password" />
@@ -59,7 +60,7 @@
             android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_marginBottom="40dp"
-            android:background="#ffd570"
+            android:background="#8900ff"
             android:text="회원 가입"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
