@@ -1,19 +1,16 @@
-package com.example.smartattendancecheckapp
+package com.example.smartattendancecheckapp.view
 
 import android.content.Intent
-import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import android.view.WindowManager
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import com.example.smartattendancecheckapp.R
 import com.example.smartattendancecheckapp.databinding.ActivityLoginBinding
-import com.example.smartattendancecheckapp.network.RetrofitClient
 import com.example.smartattendancecheckapp.network.RetrofitClient.retrofitService
+import com.example.smartattendancecheckapp.model.testList
 import retrofit2.Call
 import retrofit2.Response
-import javax.security.auth.callback.Callback
 
 class LoginActivity : AppCompatActivity() {
 

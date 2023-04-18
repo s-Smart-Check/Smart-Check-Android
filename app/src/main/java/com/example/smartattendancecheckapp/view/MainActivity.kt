@@ -1,11 +1,10 @@
-package com.example.smartattendancecheckapp
+package com.example.smartattendancecheckapp.view
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
-import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment
+import com.example.smartattendancecheckapp.R
 import com.example.smartattendancecheckapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

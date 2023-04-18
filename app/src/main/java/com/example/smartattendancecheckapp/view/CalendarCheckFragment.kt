@@ -1,26 +1,22 @@
-package com.example.smartattendancecheckapp
+package com.example.smartattendancecheckapp.view
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.smartattendancecheckapp.databinding.FragmentAttendCheckBinding
-import com.example.smartattendancecheckapp.network.RetrofitClient.retrofitService
-import retrofit2.Call
-import retrofit2.Response
-import javax.security.auth.callback.Callback
+import com.example.smartattendancecheckapp.databinding.FragmentCalendarCheckBinding
 
-class AttendCheckFragment : Fragment() {
+class CalendarCheckFragment : Fragment() {
 
-    private lateinit var binding : FragmentAttendCheckBinding
+    private lateinit var binding: FragmentCalendarCheckBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentAttendCheckBinding.inflate(inflater, container, false)
+        binding = FragmentCalendarCheckBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -28,8 +24,5 @@ class AttendCheckFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.lifecycleOwner = viewLifecycleOwner
-
     }
-
-
 }

@@ -1,4 +1,4 @@
-package com.example.smartattendancecheckapp
+package com.example.smartattendancecheckapp.view
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

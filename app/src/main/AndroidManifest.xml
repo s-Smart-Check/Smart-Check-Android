@@ -4,6 +4,15 @@
 
 <!--    인터넷 권한 설정-->
     <uses-permission android:name="android.permission.INTERNET" />
+<!--    카메라 권한 설정-->
+    <uses-permission android:name="android.permission.CAMERA"/>
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-feature
+        android:name="android.hardware.camera2"
+        android:required="true"/>
+
 
     <application
         android:allowBackup="true"
@@ -16,28 +25,28 @@
         android:theme="@style/Theme.SmartAttendanceCheckApp"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity2"
+            android:name=".view.MainActivity2"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".JoinActivity"
+            android:name=".view.JoinActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".LoginActivity"
+            android:name=".view.LoginActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".view.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

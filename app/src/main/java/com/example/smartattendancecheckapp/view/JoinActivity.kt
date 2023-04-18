@@ -1,12 +1,13 @@
-package com.example.smartattendancecheckapp
+package com.example.smartattendancecheckapp.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import com.example.smartattendancecheckapp.R
 import com.example.smartattendancecheckapp.databinding.ActivityJoinBinding
 import com.example.smartattendancecheckapp.network.RetrofitClient.retrofitService
+import com.example.smartattendancecheckapp.model.testList
 import retrofit2.Call
 import retrofit2.Response
 

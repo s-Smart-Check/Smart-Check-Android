@@ -1,6 +1,6 @@
 package com.example.smartattendancecheckapp.network
 
-import com.example.smartattendancecheckapp.testList
+import com.example.smartattendancecheckapp.model.testList
 import retrofit2.Call
 import retrofit2.http.GET
 

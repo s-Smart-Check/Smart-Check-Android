@@ -1,11 +1,11 @@
-package com.example.smartattendancecheckapp
+package com.example.smartattendancecheckapp.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
+import com.example.smartattendancecheckapp.R
 import com.example.smartattendancecheckapp.databinding.ActivityMain2Binding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
