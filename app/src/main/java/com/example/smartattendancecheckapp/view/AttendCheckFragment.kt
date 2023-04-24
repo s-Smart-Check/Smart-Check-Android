@@ -44,8 +44,7 @@ class AttendCheckFragment : Fragment() {
         }
 
     }
-
-
+    
     // 카메라 권한이 있는지 확인하고, 없으면 권한 요청
     private fun checkCameraPermission() {
         // 카메라 권한이 있는지 확인

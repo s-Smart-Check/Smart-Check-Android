@@ -20,7 +20,7 @@ class JoinActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_join)
 
         binding.btnJoinLogin.setOnClickListener {
-            if(binding.edtJoinId.text.toString() != "" && binding.edtJoinPassword.text.toString() != "") {
+            if(binding.edtJoinStudentNum.text.toString() != "" && binding.edtJoinPassword.text.toString() != "" && binding.edtJoinStudentName.text.toString() != "") {
 
                 retrofitService.getTestList().enqueue(object : retrofit2.Callback<testList> {
                     override fun onResponse(call: Call<testList>, response: Response<testList>) {
