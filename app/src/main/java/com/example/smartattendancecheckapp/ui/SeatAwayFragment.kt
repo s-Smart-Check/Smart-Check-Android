@@ -1,22 +1,22 @@
-package com.example.smartattendancecheckapp.view
+package com.example.smartattendancecheckapp.ui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.smartattendancecheckapp.databinding.FragmentCalendarCheckBinding
+import com.example.smartattendancecheckapp.databinding.FragmentSeatAwayBinding
 
-class CalendarCheckFragment : Fragment() {
+class SeatAwayFragment : Fragment() {
 
-    private lateinit var binding: FragmentCalendarCheckBinding
+    private lateinit var binding: FragmentSeatAwayBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentCalendarCheckBinding.inflate(inflater, container, false)
+        binding = FragmentSeatAwayBinding.inflate(inflater, container, false)
         return binding.root
     }
 

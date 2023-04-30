@@ -1,4 +1,4 @@
-package com.example.smartattendancecheckapp.view
+package com.example.smartattendancecheckapp.ui
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity

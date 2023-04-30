@@ -1,14 +1,12 @@
-package com.example.smartattendancecheckapp.view
+package com.example.smartattendancecheckapp.ui
 
 import android.Manifest
 import android.app.Activity
 import android.content.ActivityNotFoundException
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
