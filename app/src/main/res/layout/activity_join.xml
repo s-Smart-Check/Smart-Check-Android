@@ -37,7 +37,7 @@
             android:id="@+id/tv_join_student_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="70dp"
+            android:layout_marginTop="40dp"
             android:text="이름"
             android:textSize="30dp"
             android:textStyle="bold"
@@ -59,7 +59,7 @@
             android:id="@+id/tv_join_password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="70dp"
+            android:layout_marginTop="40dp"
             android:text="비밀번호"
             android:textSize="30dp"
             android:textStyle="bold"
@@ -92,12 +92,21 @@
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_join_add_photo"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:text="사진 추가"
+            android:background="#8900ff"
+            android:textColor="@color/white"
             app:layout_constraintTop_toBottomOf="@id/edt_join_password"
             app:layout_constraintStart_toStartOf="@id/edt_join_password"
             android:layout_marginTop="20dp" />
 
+        <ImageView
+            android:id="@+id/iv_join_photo"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintTop_toBottomOf="@id/btn_join_add_photo"
+            app:layout_constraintStart_toStartOf="@id/btn_join_add_photo" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

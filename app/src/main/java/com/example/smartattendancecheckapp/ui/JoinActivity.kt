@@ -1,17 +1,15 @@
 package com.example.smartattendancecheckapp.ui
 
 import android.Manifest
-import android.app.Activity
-import android.content.ActivityNotFoundException
-import android.content.Context
+import android.content.ContentValues
 import android.content.Intent
-import android.content.pm.PackageManager
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.databinding.DataBindingUtil
 import com.example.smartattendancecheckapp.R
 import com.example.smartattendancecheckapp.databinding.ActivityJoinBinding
@@ -19,15 +17,50 @@ import com.example.smartattendancecheckapp.network.RetrofitClient.retrofitServic
 import com.example.smartattendancecheckapp.model.testList
 import retrofit2.Call
 import retrofit2.Response
-
-private val REQUEST_CAMERA_PERMISSION = 1
+import java.text.SimpleDateFormat
+import java.util.*
 
 class JoinActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityJoinBinding
 
+    // 파일 불러오기
+//    private val getContentImage = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+//        uri.let { binding.mainImg.setImageURI(uri) }
+//    }
+
+    // 카메라를 실행한 후 찍은 사진을 저장
+    var pictureUri: Uri? = null
+    private val getTakePicture = registerForActivityResult(ActivityResultContracts.TakePicture()) {
+        Log.d("zzz", "${pictureUri}")
+        if(it) {
+            pictureUri.let { binding.ivJoinPhoto.setImageURI(pictureUri) }
+        }
+    }
+
+    // 카메라를 실행하며 결과로 비트맵 이미지를 얻음
+//    private val getTakePicturePreview = registerForActivityResult(ActivityResultContracts.TakePicturePreview()) { bitmap ->
+//        bitmap.let { binding.ivJoinPhoto.setImageBitmap(bitmap) }
+//    }
+
+    // 요청하고자 하는 권한들
+    private val permission = arrayOf(Manifest.permission.CAMERA)
+
+    // 권한을 허용하도록 요청
+    private val requestPermission = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { results ->
+        results.forEach {
+            if(!it.value) {
+                Toast.makeText(applicationContext, "권한 허용 필요", Toast.LENGTH_SHORT).show()
+                finish()
+            }
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        requestPermission.launch(permission)
+
         binding = DataBindingUtil.setContentView(this, R.layout.activity_join)
 
         binding.btnJoinLogin.setOnClickListener {
@@ -53,34 +86,22 @@ class JoinActivity : AppCompatActivity() {
         }
 
         binding.btnJoinAddPhoto.setOnClickListener {
-            checkCameraPermission()
+            pictureUri = createImageFile()
+            getTakePicture.launch(pictureUri)
         }
     }
 
-    // 카메라 권한이 있는지 확인하고, 없으면 권한 요청
-    private fun checkCameraPermission() {
-        // 카메라 권한이 있는지 확인
-        if (this@JoinActivity?.let { ContextCompat.checkSelfPermission(it, Manifest.permission.CAMERA) }
-            != PackageManager.PERMISSION_GRANTED) {
-            // 권한이 없으면 권한 요청
-            ActivityCompat.requestPermissions(this@JoinActivity as Activity,
-                arrayOf(Manifest.permission.CAMERA),
-                REQUEST_CAMERA_PERMISSION)
+    private fun createImageFile(): Uri? {
+        val now = SimpleDateFormat("yyMMdd_HHmmss").format(Date())
+        val content = ContentValues().apply {
+            put(MediaStore.Images.Media.DISPLAY_NAME, "img_$now.jpg")
+            put(MediaStore.Images.Media.MIME_TYPE, "image/jpg")
         }
-        else {
-            // 권한이 있으면 카메라 실행
-            openCamera()
-        }
+        return contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, content)
     }
 
-
-    // 카메라 실행
-    private fun openCamera() {
-        val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        try {
-            startActivityForResult(takePictureIntent, REQUEST_IMAGE_IMAGE_CAPTURE)
-        } catch (e: ActivityNotFoundException) {
-            Toast.makeText(this@JoinActivity, "카메라 왜 안됌??", Toast.LENGTH_SHORT).show()
-        }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        Log.d("액티비티 실행 결과", "zzz")
     }
 }
