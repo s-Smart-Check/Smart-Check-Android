@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
 
         // 회원 가입 버튼 클릭
         binding.btnJoin.setOnClickListener {
-            val intent = Intent(this, JoinActivity::class.java)
+            val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
         }
 
