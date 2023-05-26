@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "59698346334",
+    "project_id": "smart-attendance-check-app",
+    "storage_bucket": "smart-attendance-check-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:59698346334:android:1903720ed79bee85a877cf",
+        "android_client_info": {
+          "package_name": "com.example.smartattendancecheckapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "59698346334-0qteveblc3kr9t1f4go7es153fsr0po0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBfIQJWcsiz3AJRiNxLOjx8V3UlKTlSC9w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "59698346334-0qteveblc3kr9t1f4go7es153fsr0po0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
