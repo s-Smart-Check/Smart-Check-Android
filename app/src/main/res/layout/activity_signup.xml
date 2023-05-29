@@ -50,7 +50,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:hint="이름"
-            android:inputType="textPassword"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_join_student_name" />
