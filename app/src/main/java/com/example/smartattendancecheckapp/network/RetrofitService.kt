@@ -28,9 +28,10 @@ interface RetrofitService {
     ): Call<LoginRes>
 
     @Multipart
-    @POST("/save/image")
+    @POST("image")
     fun sendImage(
-        @Part imageFile: MultipartBody.Part
+        @Part("studentNum") studentNum: String,
+        @Part imageFile: List<MultipartBody.Part>
     ): Call<String>
 
     // 다른 값도 같이 전송하는 경우
