@@ -5,7 +5,6 @@ import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.database.Cursor
-import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
@@ -30,11 +29,11 @@ import okhttp3.RequestBody
 import java.io.File
 
 var photoIndex: Int = 0
-var photoArray: ArrayList<String>? = null
 
 class SignUpActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySignupBinding
+    private var photoMultiPartList = mutableListOf<MultipartBody.Part>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +43,9 @@ class SignUpActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_signup)
 
         binding.btnJoinLogin.setOnClickListener {
+
+            sendImage(binding.edtJoinStudentNum.text.toString(), photoMultiPartList)
+
             // 입력 값을 모두 입력 했는지 확인
             if(binding.edtJoinStudentNum.text.toString() != "" && binding.edtJoinPassword.text.toString() != "" && binding.edtJoinStudentName.text.toString() != "") {
 
@@ -51,6 +53,7 @@ class SignUpActivity : AppCompatActivity() {
                     override fun onResponse(call: Call<testList>, response: Response<testList>) {
 //                      통신 성공
                         Toast.makeText(this@SignUpActivity, "회원가입 성공", Toast.LENGTH_SHORT).show()
+//                        sendImage(binding.edtJoinStudentNum.text.toString(), photoMultiPartList)
                         finish()
                     }
 
@@ -72,6 +75,7 @@ class SignUpActivity : AppCompatActivity() {
 //                            when(response.code()) {
 //                                200 -> {
 //                                    Toast.makeText(this@SignUpActivity, "회원가입 성공", Toast.LENGTH_SHORT).show()
+//                                    sendImage(binding.edtJoinStudentNum.text.toString(), photoMultiPartList)
 //                                    finish()
 //                                }
 //                                400 ->{
@@ -93,6 +97,7 @@ class SignUpActivity : AppCompatActivity() {
             }
         }
 
+        // 사진 추가 버튼 클릭 시
         binding.btnJoinAddPhoto.setOnClickListener {
             pictureUri = createImageFile(binding.edtJoinStudentNum.text.toString())
             Log.d("사진 Uri", "$pictureUri")
@@ -122,14 +127,19 @@ class SignUpActivity : AppCompatActivity() {
 
         val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
         val body = MultipartBody.Part.createFormData("profile", file.name, requestFile)
-        sendImage(body)
+//        이미지 전송 함수
+//        sendImage(binding.edtJoinStudentNum.text.toString(), body)
+        photoMultiPartList.add(body)
+        Log.d("zzz", body.toString())
+
 
         if(it) {
-
             when(photoIndex) {
                 1 -> pictureUri.let { binding.ivJoinPhoto1.setImageURI(pictureUri) }
-                2 -> pictureUri.let { binding.ivJoinPhoto1.setImageURI(pictureUri)}
-                3 -> pictureUri.let { binding.ivJoinPhoto1.setImageURI(pictureUri)}
+                2 -> pictureUri.let { binding.ivJoinPhoto2.setImageURI(pictureUri) }
+                3 -> pictureUri.let { binding.ivJoinPhoto3.setImageURI(pictureUri) }
+                4 -> pictureUri.let { binding.ivJoinPhoto4.setImageURI(pictureUri) }
+                5 -> pictureUri.let { binding.ivJoinPhoto5.setImageURI(pictureUri) }
             }
         }
     }
@@ -158,13 +168,9 @@ class SignUpActivity : AppCompatActivity() {
         return contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, content)
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        Log.d("액티비티 실행 결과", "zzz")
-    }
-
-    fun sendImage(body: MultipartBody.Part){
-        retrofitService.sendImage(body).enqueue(object: retrofit2.Callback<String>{
+    // 이미지 서버로 전송
+    fun sendImage(studentNum: String, body: List<MultipartBody.Part>) {
+        retrofitService.sendImage(studentNum, body).enqueue(object: retrofit2.Callback<String>{
             override fun onResponse(call: Call<String>, response: Response<String>) {
                 if(response.isSuccessful){
                     Toast.makeText(this@SignUpActivity, "이미지 전송 성공", Toast.LENGTH_SHORT).show()
@@ -174,9 +180,14 @@ class SignUpActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<String>, t: Throwable) {
-                Log.d("testt", t.message.toString())
+                Log.d("test", t.message.toString())
             }
 
         })
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        Log.d("액티비티 실행 결과", "zzz")
     }
 }
