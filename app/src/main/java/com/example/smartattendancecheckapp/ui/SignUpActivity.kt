@@ -122,13 +122,13 @@ class SignUpActivity : AppCompatActivity() {
     var pictureUri: Uri? = null
     private val getTakePicture = registerForActivityResult(ActivityResultContracts.TakePicture()) {
         Log.d("zzz", "${pictureUri}")
+
         val file = File(absolutelyPath(pictureUri, this))
         Log.d("zzz", "$file")
 
         val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
         val body = MultipartBody.Part.createFormData("profile", file.name, requestFile)
-//        이미지 전송 함수
-//        sendImage(binding.edtJoinStudentNum.text.toString(), body)
+
         photoMultiPartList.add(body)
         Log.d("zzz", body.toString())
 

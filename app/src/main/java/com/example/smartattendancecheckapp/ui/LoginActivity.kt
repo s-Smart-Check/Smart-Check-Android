@@ -14,9 +14,12 @@ import com.example.smartattendancecheckapp.model.testList
 import retrofit2.Call
 import retrofit2.Response
 
+lateinit var usrNum: String
+
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +49,7 @@ class LoginActivity : AppCompatActivity() {
 //                )).enqueue(object : retrofit2.Callback<LoginRes> {
 //                    // 정상적으로 응답이 온 경우
 //                    override fun onResponse(call: Call<LoginRes>, response: Response<LoginRes>) {
+//                        usrNum = response.body()!!.password
 //                        if (response.isSuccessful){
 //                            when(response.code()) {
 //                                200 -> {

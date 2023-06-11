@@ -8,6 +8,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
 import android.provider.MediaStore
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -18,7 +19,14 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.example.smartattendancecheckapp.R
 import com.example.smartattendancecheckapp.databinding.FragmentAttendCheckBinding
+import com.example.smartattendancecheckapp.model.response.StudentAttendanceRes
+import com.example.smartattendancecheckapp.model.testList
+import com.example.smartattendancecheckapp.network.RetrofitClient
+import retrofit2.Call
+import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -63,6 +71,47 @@ class AttendCheckFragment : Fragment() {
         binding.attendCheckBtnAddFace.setOnClickListener {
             pictureUri = createImageFile()
             getTakePicture.launch(pictureUri)
+        }
+
+        binding.refreshLayout.setOnRefreshListener {
+            // 실제 통신
+//            RetrofitClient.retrofitService.requestAttendanceInfo(usrNum).enqueue(object : retrofit2.Callback<StudentAttendanceRes> {
+//                override fun onResponse(call: Call<StudentAttendanceRes>, response: Response<StudentAttendanceRes>) {
+//                    // 통신 성공
+//                    Toast.makeText(activity, "출석 완료!", Toast.LENGTH_SHORT).show()
+//
+//                    binding.attendCheckImage.setImageResource(R.drawable.ic_baseline_check_circle_24)
+//                    binding.testText.text = "출석 완료"
+
+//                    binding.refreshLayout.isRefreshing = false
+//                }
+//
+//                override fun onFailure(call: Call<StudentAttendanceRes>, t: Throwable) {
+//                    // 통신 실패
+//                    Toast.makeText(activity, "출석 실패", Toast.LENGTH_SHORT).show()
+//                }
+//
+//            })
+
+            // 테스트 통신
+            RetrofitClient.retrofitService.getTestList().enqueue(object : retrofit2.Callback<testList> {
+                override fun onResponse(call: Call<testList>, response: Response<testList>) {
+//                      통신 성공
+                    Toast.makeText(activity, "출석 완료!", Toast.LENGTH_SHORT).show()
+
+                    binding.attendCheckImage.setImageResource(R.drawable.ic_baseline_check_circle_24)
+                    binding.testText.text = "출석 완료"
+
+                    binding.refreshLayout.isRefreshing = false
+
+                }
+
+                override fun onFailure(call: Call<testList>, t: Throwable) {
+//                      통신 실패
+                    Toast.makeText(activity, "출석 실패", Toast.LENGTH_SHORT).show()
+                }
+
+            })
         }
 
     }

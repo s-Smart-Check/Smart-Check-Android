@@ -11,9 +11,9 @@ object RetrofitClient {
 //    private const val BASEURL = "http://172.16.37.20:8080/"
 //    private const val BASEURL = "http://172.16.39.133:8080/"
 
-    private const val BASEURL = "http://192.168.137.30:8080"
+//    private const val BASEURL = "http://192.168.137.29:8080"
 
-//    private const val BASEURL: String = "https://api.chucknorris.io/"
+    private const val BASEURL: String = "https://api.chucknorris.io/"
 
     //    logger 생성
     private val logger : HttpLoggingInterceptor = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)

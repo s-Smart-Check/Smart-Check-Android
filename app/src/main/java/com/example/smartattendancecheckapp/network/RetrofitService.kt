@@ -2,8 +2,10 @@ package com.example.smartattendancecheckapp.network
 
 import com.example.smartattendancecheckapp.model.request.LoginData
 import com.example.smartattendancecheckapp.model.request.SignUpData
+import com.example.smartattendancecheckapp.model.request.StudentAttendanceData
 import com.example.smartattendancecheckapp.model.response.LoginRes
 import com.example.smartattendancecheckapp.model.response.SignUpRes
+import com.example.smartattendancecheckapp.model.response.StudentAttendanceRes
 import com.example.smartattendancecheckapp.model.testList
 import okhttp3.MultipartBody
 import retrofit2.Call
@@ -26,6 +28,11 @@ interface RetrofitService {
     fun requestLogin(
         @Body loginData: LoginData
     ): Call<LoginRes>
+
+    @GET()
+    fun requestAttendanceInfo(
+        @Body studentAttendanceData: String
+    ): Call<StudentAttendanceRes>
 
     @Multipart
     @POST("image")
