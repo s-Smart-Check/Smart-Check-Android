@@ -102,6 +102,9 @@ class AttendCheckFragment : Fragment() {
                     binding.attendCheckImage.setImageResource(R.drawable.ic_baseline_check_circle_24)
                     binding.testText.text = "출석 완료"
 
+                    binding.attendCheckClassName.text="창의적 공학 설계"
+                    binding.attendCheckProfessor.text="김시현" + " 교수님"
+
                     binding.refreshLayout.isRefreshing = false
 
                 }

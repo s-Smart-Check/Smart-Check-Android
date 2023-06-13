@@ -23,7 +23,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"
                 android:layout_marginTop="50dp"
-                android:text="수업 명"
+                android:text=""
                 tools:text="창의적 공학 설계"
                 android:textSize="35sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -34,20 +34,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:text="xxx"
+                android:text=""
                 tools:text="김시현"
                 android:textSize="25sp"
                 app:layout_constraintStart_toStartOf="@+id/attend_check_class_name"
                 app:layout_constraintTop_toBottomOf="@id/attend_check_class_name" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:text="교수님"
-                android:textSize="25sp"
-                app:layout_constraintStart_toEndOf="@id/attend_check_professor"
-                app:layout_constraintTop_toTopOf="@+id/attend_check_professor" />
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="5dp"-->
+<!--                android:text="교수님"-->
+<!--                android:textSize="25sp"-->
+<!--                app:layout_constraintStart_toEndOf="@id/attend_check_professor"-->
+<!--                app:layout_constraintTop_toTopOf="@+id/attend_check_professor" />-->
 
             <ImageView
                 android:id="@+id/attend_check_image"
