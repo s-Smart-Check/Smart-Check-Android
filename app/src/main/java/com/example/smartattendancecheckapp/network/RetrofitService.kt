@@ -29,9 +29,9 @@ interface RetrofitService {
         @Body loginData: LoginData
     ): Call<LoginRes>
 
-    @GET()
+    @POST("checkAttend")
     fun requestAttendanceInfo(
-        @Body studentAttendanceData: String
+        @Body usrNum: StudentAttendanceData
     ): Call<StudentAttendanceRes>
 
     @Multipart

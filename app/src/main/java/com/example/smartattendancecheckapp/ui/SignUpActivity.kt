@@ -22,6 +22,8 @@ import retrofit2.Call
 import retrofit2.Response
 import java.io.ByteArrayOutputStream
 import android.util.Base64
+import com.example.smartattendancecheckapp.model.request.SignUpData
+import com.example.smartattendancecheckapp.model.response.SignUpRes
 import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -49,45 +51,47 @@ class SignUpActivity : AppCompatActivity() {
             // 입력 값을 모두 입력 했는지 확인
             if(binding.edtJoinStudentNum.text.toString() != "" && binding.edtJoinPassword.text.toString() != "" && binding.edtJoinStudentName.text.toString() != "") {
 
-                retrofitService.getTestList().enqueue(object : retrofit2.Callback<testList> {
-                    override fun onResponse(call: Call<testList>, response: Response<testList>) {
-//                      통신 성공
-                        Toast.makeText(this@SignUpActivity, "회원가입 성공", Toast.LENGTH_SHORT).show()
-//                        sendImage(binding.edtJoinStudentNum.text.toString(), photoMultiPartList)
-                        finish()
-                    }
-
-                    override fun onFailure(call: Call<testList>, t: Throwable) {
-//                      통신 실패
-                        Toast.makeText(this@SignUpActivity, "회원가입 실패", Toast.LENGTH_SHORT).show()
-                    }
-
-                })
-
-
-//                retrofitService.requestSignUp(SignUpData(
-//                    binding.edtJoinStudentNum.text.toString(),
-//                    binding.edtJoinStudentName.text.toString(),
-//                    binding.edtJoinPassword.text.toString()
-//                )).enqueue(object : retrofit2.Callback<SignUpRes> {
-//                    override fun onResponse(call: Call<SignUpRes>, response: Response<SignUpRes>) {
-//                        if(response.isSuccessful) {
-//                            when(response.code()) {
-//                                200 -> {
-//                                    Toast.makeText(this@SignUpActivity, "회원가입 성공", Toast.LENGTH_SHORT).show()
-//                                    sendImage(binding.edtJoinStudentNum.text.toString(), photoMultiPartList)
-//                                    finish()
-//                                }
-//                                400 ->{
-//                                    Toast.makeText(this@SignUpActivity, "회원가입 실패", Toast.LENGTH_SHORT).show()
-//                                }
-//                            }
-//                        }
+//                retrofitService.getTestList().enqueue(object : retrofit2.Callback<testList> {
+//                    override fun onResponse(call: Call<testList>, response: Response<testList>) {
+////                      통신 성공
+//                        Toast.makeText(this@SignUpActivity, "회원가입 성공", Toast.LENGTH_SHORT).show()
+////                        sendImage(binding.edtJoinStudentNum.text.toString(), photoMultiPartList)
+//                        finish()
 //                    }
-//                    override fun onFailure(call: Call<SignUpRes>, t: Throwable) {
+//
+//                    override fun onFailure(call: Call<testList>, t: Throwable) {
+////                      통신 실패
 //                        Toast.makeText(this@SignUpActivity, "회원가입 실패", Toast.LENGTH_SHORT).show()
 //                    }
+//
 //                })
+
+
+                retrofitService.requestSignUp(
+                    SignUpData(
+                    binding.edtJoinStudentNum.text.toString(),
+                    binding.edtJoinStudentName.text.toString(),
+                    binding.edtJoinPassword.text.toString()
+                )
+                ).enqueue(object : retrofit2.Callback<SignUpRes> {
+                    override fun onResponse(call: Call<SignUpRes>, response: Response<SignUpRes>) {
+                        if(response.isSuccessful) {
+                            when(response.code()) {
+                                200 -> {
+                                    Toast.makeText(this@SignUpActivity, "회원가입 성공", Toast.LENGTH_SHORT).show()
+                                    sendImage(binding.edtJoinStudentNum.text.toString(), photoMultiPartList)
+                                    finish()
+                                }
+                                400 ->{
+                                    Toast.makeText(this@SignUpActivity, "회원가입 실패", Toast.LENGTH_SHORT).show()
+                                }
+                            }
+                        }
+                    }
+                    override fun onFailure(call: Call<SignUpRes>, t: Throwable) {
+                        Toast.makeText(this@SignUpActivity, "회원가입 실패", Toast.LENGTH_SHORT).show()
+                    }
+                })
 
 
 
