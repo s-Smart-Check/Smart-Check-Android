@@ -1,4 +1,4 @@
-package com.example.smartattendancecheckapp.ui
+package com.example.smartattendancecheckapp.ui.main
 
 import android.animation.ObjectAnimator
 import android.content.Intent
@@ -6,7 +6,6 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.view.ViewTreeObserver
 import android.view.animation.AnticipateInterpolator
 import androidx.annotation.RequiresApi
 import androidx.core.animation.doOnEnd
@@ -14,6 +13,8 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.databinding.DataBindingUtil
 import com.example.smartattendancecheckapp.R
 import com.example.smartattendancecheckapp.databinding.ActivityMainBinding
+import com.example.smartattendancecheckapp.ui.Login.LoginActivity
+import com.example.smartattendancecheckapp.ui.signup.SignUpActivity
 
 class MainActivity : AppCompatActivity() {
 

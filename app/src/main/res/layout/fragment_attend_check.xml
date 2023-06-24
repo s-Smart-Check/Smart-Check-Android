@@ -15,7 +15,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".ui.AttendCheckFragment">
+            tools:context=".ui.attendcheck.AttendCheckFragment">
 
             <TextView
                 android:id="@+id/attend_check_class_name"

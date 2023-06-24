@@ -1,11 +1,10 @@
-package com.example.smartattendancecheckapp.ui
+package com.example.smartattendancecheckapp.ui.signup
 
 import android.Manifest
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.database.Cursor
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -16,15 +15,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.smartattendancecheckapp.R
 import com.example.smartattendancecheckapp.databinding.ActivitySignupBinding
-import com.example.smartattendancecheckapp.model.testList
 import com.example.smartattendancecheckapp.network.RetrofitClient.retrofitService
 import retrofit2.Call
 import retrofit2.Response
-import java.io.ByteArrayOutputStream
-import android.util.Base64
 import com.example.smartattendancecheckapp.model.request.SignUpData
 import com.example.smartattendancecheckapp.model.response.SignUpRes
-import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -165,8 +160,8 @@ class SignUpActivity : AppCompatActivity() {
     private fun createImageFile(studentNum: String): Uri? {
         val content = ContentValues().apply {
             photoIndex += 1
-            Log.d("사진 생성", "${studentNum}_${photoIndex}")
-            put(MediaStore.Images.Media.DISPLAY_NAME, "${studentNum}_${photoIndex}.jpg")
+            Log.d("사진 생성", "${studentNum}_$photoIndex")
+            put(MediaStore.Images.Media.DISPLAY_NAME, "${studentNum}_$photoIndex.jpg")
             put(MediaStore.Images.Media.MIME_TYPE, "image/jpg")
         }
         return contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, content)

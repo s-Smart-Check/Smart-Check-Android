@@ -1,4 +1,4 @@
-package com.example.smartattendancecheckapp.ui
+package com.example.smartattendancecheckapp.ui.Login
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -10,7 +10,7 @@ import com.example.smartattendancecheckapp.databinding.ActivityLoginBinding
 import com.example.smartattendancecheckapp.model.request.LoginData
 import com.example.smartattendancecheckapp.model.response.LoginRes
 import com.example.smartattendancecheckapp.network.RetrofitClient.retrofitService
-import com.example.smartattendancecheckapp.model.testList
+import com.example.smartattendancecheckapp.ui.main2.MainActivity2
 import retrofit2.Call
 import retrofit2.Response
 
