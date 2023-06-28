@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.smartattendancecheckapp.R
 import com.example.smartattendancecheckapp.databinding.ActivitySignupBinding
+import com.example.smartattendancecheckapp.model.TestList
 import com.example.smartattendancecheckapp.network.RetrofitClient.retrofitService
 import retrofit2.Call
 import retrofit2.Response
@@ -46,15 +47,15 @@ class SignUpActivity : AppCompatActivity() {
             // 입력 값을 모두 입력 했는지 확인
             if(binding.edtJoinStudentNum.text.toString() != "" && binding.edtJoinPassword.text.toString() != "" && binding.edtJoinStudentName.text.toString() != "") {
 
-//                retrofitService.getTestList().enqueue(object : retrofit2.Callback<testList> {
-//                    override fun onResponse(call: Call<testList>, response: Response<testList>) {
+//                retrofitService.getTestList().enqueue(object : retrofit2.Callback<TestList> {
+//                    override fun onResponse(call: Call<TestList>, response: Response<TestList>) {
 ////                      통신 성공
 //                        Toast.makeText(this@SignUpActivity, "회원가입 성공", Toast.LENGTH_SHORT).show()
 ////                        sendImage(binding.edtJoinStudentNum.text.toString(), photoMultiPartList)
 //                        finish()
 //                    }
 //
-//                    override fun onFailure(call: Call<testList>, t: Throwable) {
+//                    override fun onFailure(call: Call<TestList>, t: Throwable) {
 ////                      통신 실패
 //                        Toast.makeText(this@SignUpActivity, "회원가입 실패", Toast.LENGTH_SHORT).show()
 //                    }
