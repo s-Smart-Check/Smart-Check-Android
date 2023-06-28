@@ -6,7 +6,7 @@ import com.example.smartattendancecheckapp.model.request.StudentAttendanceData
 import com.example.smartattendancecheckapp.model.response.LoginRes
 import com.example.smartattendancecheckapp.model.response.SignUpRes
 import com.example.smartattendancecheckapp.model.response.StudentAttendanceRes
-import com.example.smartattendancecheckapp.model.testList
+import com.example.smartattendancecheckapp.model.TestList
 import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.Body
@@ -17,7 +17,7 @@ import retrofit2.http.Part
 
 interface RetrofitService {
     @GET("jokes/categories")
-    fun getTestList(): Call<testList>
+    fun getTestList(): Call<TestList>
 
     @POST("tempJoin")
     fun requestSignUp(

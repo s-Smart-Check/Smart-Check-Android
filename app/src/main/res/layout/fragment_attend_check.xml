@@ -17,17 +17,39 @@
             android:layout_height="match_parent"
             tools:context=".ui.attendcheck.AttendCheckFragment">
 
+            <androidx.cardview.widget.CardView
+                android:id="@+id/attend_check_cardview_warning"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_margin="10dp"
+                android:visibility="gone"
+                app:cardCornerRadius="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@color/red"
+                    android:paddingStart="90dp"
+                    android:paddingTop="10dp"
+                    android:text="얼굴 재등록이 필요합니다!!"
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
+
+            </androidx.cardview.widget.CardView>
+
             <TextView
                 android:id="@+id/attend_check_class_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="80dp"
                 android:text=""
-                tools:text="창의적 공학 설계"
                 android:textSize="35sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="창의적 공학 설계" />
 
             <TextView
                 android:id="@+id/attend_check_professor"
@@ -35,37 +57,28 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:text=""
-                tools:text="김시현"
                 android:textSize="25sp"
                 app:layout_constraintStart_toStartOf="@+id/attend_check_class_name"
-                app:layout_constraintTop_toBottomOf="@id/attend_check_class_name" />
-
-<!--            <TextView-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginStart="5dp"-->
-<!--                android:text="교수님"-->
-<!--                android:textSize="25sp"-->
-<!--                app:layout_constraintStart_toEndOf="@id/attend_check_professor"-->
-<!--                app:layout_constraintTop_toTopOf="@+id/attend_check_professor" />-->
+                app:layout_constraintTop_toBottomOf="@id/attend_check_class_name"
+                tools:text="김시현" />
 
             <ImageView
                 android:id="@+id/attend_check_image"
                 android:layout_width="200dp"
                 android:layout_height="200dp"
+                android:layout_marginBottom="20dp"
                 android:src="@drawable/ic_baseline_cancel_24"
                 app:layout_constraintBottom_toTopOf="@+id/testText"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginBottom="20dp" />
+                app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
                 android:id="@+id/testText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="150dp"
                 android:text=""
                 android:textSize="30sp"
-                android:layout_marginBottom="150dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />

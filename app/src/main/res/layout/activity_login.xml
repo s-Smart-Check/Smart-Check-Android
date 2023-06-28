@@ -55,18 +55,29 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_login_password" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_login_login"
-            android:layout_width="0dp"
-            android:layout_height="30dp"
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardview_login_login"
+            android:layout_width="300dp"
+            android:layout_height="35dp"
             android:layout_marginBottom="40dp"
-            android:background="#8900ff"
-            android:text="로그인"
-            android:textColor="@color/white"
+            app:cardCornerRadius="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent">
 
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_login_login"
+                android:layout_width="300dp"
+                android:layout_height="35dp"
+                android:background="#8900ff"
+                android:text="로그인"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
+
+        </androidx.cardview.widget.CardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
