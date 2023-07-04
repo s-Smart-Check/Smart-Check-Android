@@ -30,6 +30,7 @@ class LoginActivity : AppCompatActivity() {
             // 입력 값이 있는 경우
             if (binding.edtLoginStudentNum.text.toString() != "" && binding.edtLoginPassword.text.toString() != "") {
 
+                usrNum = binding.edtLoginStudentNum.toString()
                 retrofitService.getTestList().enqueue(object : retrofit2.Callback<TestList> {
                     // 정상적으로 응답이 온 경우
                     override fun onResponse(call: Call<TestList>, response: Response<TestList>) {

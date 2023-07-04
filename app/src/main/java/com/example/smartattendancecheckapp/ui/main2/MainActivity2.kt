@@ -7,6 +7,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.smartattendancecheckapp.R
 import com.example.smartattendancecheckapp.databinding.ActivityMain2Binding
+import com.example.smartattendancecheckapp.ui.enrollface.EnrollFaceFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity2 : AppCompatActivity() {
@@ -19,7 +20,6 @@ class MainActivity2 : AppCompatActivity() {
 
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.navigation_bottom_main2)
         bottomNavigationView.itemIconTintList = null            // BottomNavigation 에서 Theme의 색을 참조하던 것을 초기화 시킴
-
 
 //        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_init) as NavHostFragment
         val navController = supportFragmentManager.findFragmentById(R.id.nav_host_init)?.findNavController()

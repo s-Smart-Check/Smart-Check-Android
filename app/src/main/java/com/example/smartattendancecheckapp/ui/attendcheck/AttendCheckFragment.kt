@@ -12,12 +12,17 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.isVisible
+import androidx.navigation.NavController
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.example.smartattendancecheckapp.R
 import com.example.smartattendancecheckapp.databinding.FragmentAttendCheckBinding
 import com.example.smartattendancecheckapp.model.TestList
 import com.example.smartattendancecheckapp.model.request.StudentAttendanceData
 import com.example.smartattendancecheckapp.model.response.StudentAttendanceRes
 import com.example.smartattendancecheckapp.network.RetrofitClient
+import com.example.smartattendancecheckapp.ui.enrollface.EnrollFaceFragment
+import com.example.smartattendancecheckapp.ui.main2.MainActivity2
 import com.example.smartattendancecheckapp.ui.Login.usrNum
 import retrofit2.Call
 import retrofit2.Response
@@ -27,6 +32,7 @@ import java.util.*
 class AttendCheckFragment : Fragment() {
 
     private lateinit var binding : FragmentAttendCheckBinding
+    private lateinit var navController: NavController
 
     // 카메라를 실행한 후 찍은 사진을 저장
     var pictureUri: Uri? = null
@@ -59,12 +65,11 @@ class AttendCheckFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.lifecycleOwner = viewLifecycleOwner
-
+        navController = findNavController()
         requestMultiplePermission.launch(permission)
 
         binding.attendCheckBtnAddFace.setOnClickListener {
-            pictureUri = createImageFile()
-            getTakePicture.launch(pictureUri)
+            navController.navigate(R.id.action_attent_check_to_enroll)
         }
 
         binding.refreshLayout.setOnRefreshListener {
@@ -147,15 +152,6 @@ class AttendCheckFragment : Fragment() {
             })
         }
 
-    }
-
-    private fun createImageFile(): Uri? {
-        val now = SimpleDateFormat("yyMMdd_HHmmss").format(Date())
-        val content = ContentValues().apply {
-            put(MediaStore.Images.Media.DISPLAY_NAME, "img_$now.jpg")
-            put(MediaStore.Images.Media.MIME_TYPE, "image/jpg")
-        }
-        return requireActivity().contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, content)
     }
 
 }
