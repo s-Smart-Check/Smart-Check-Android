@@ -15,6 +15,7 @@ import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.navGraphViewModels
 import com.example.smartattendancecheckapp.R
 import com.example.smartattendancecheckapp.databinding.FragmentAttendCheckBinding
 import com.example.smartattendancecheckapp.model.TestList
@@ -33,6 +34,7 @@ class AttendCheckFragment : Fragment() {
 
     private lateinit var binding : FragmentAttendCheckBinding
     private lateinit var navController: NavController
+    private val viewModel: AttendCheckViewModel by navGraphViewModels(R.id.nav_graph)
 
     // 카메라를 실행한 후 찍은 사진을 저장
     var pictureUri: Uri? = null
@@ -68,6 +70,22 @@ class AttendCheckFragment : Fragment() {
         navController = findNavController()
         requestMultiplePermission.launch(permission)
 
+        if(viewModel.attendState) {
+            if (viewModel.attendWay == 1) {
+                binding.attendCheckCardviewWarning.isVisible = true
+            }
+            binding.attendCheckImage.setImageResource(R.drawable.ic_baseline_check_circle_24)
+            binding.testText.text = "출석 완료"
+
+            binding.attendCheckClassName.text="창의적 공학 설계"
+            binding.attendCheckProfessor.text="김시현" + " 교수님"
+        } else {
+            binding.attendCheckImage.setImageResource(R.drawable.ic_baseline_cancel_24)
+            binding.testText.text = ""
+            binding.attendCheckClassName.text=""
+            binding.attendCheckProfessor.text=""
+        }
+
         binding.attendCheckBtnAddFace.setOnClickListener {
             navController.navigate(R.id.action_attent_check_to_enroll)
         }
@@ -83,9 +101,11 @@ class AttendCheckFragment : Fragment() {
 //                                // 통신 성공
 //                                when(response.body()!!.attendance) {
 //                                    true -> {
+//                                        viewModel.attendState = true
 //                                        Toast.makeText(activity, "출석 완료!", Toast.LENGTH_SHORT).show()
 //
 //                                        if(response.body()!!.state == 1) {
+//                                            viewModel.attendWay = 1
 //                                            Toast.makeText(activity, "얼굴 재등록 필요!!", Toast.LENGTH_SHORT).show()
 //                                            binding.attendCheckCardviewWarning.isVisible = true
 //                                        }
@@ -99,6 +119,7 @@ class AttendCheckFragment : Fragment() {
 //                                        binding.refreshLayout.isRefreshing = false
 //                                    }
 //                                    false -> {
+//                                        viewModel.attendState = false
 //                                        Toast.makeText(activity, "출석 실패", Toast.LENGTH_SHORT).show()
 //
 //                                        binding.attendCheckImage.setImageResource(R.drawable.ic_baseline_cancel_24)
@@ -131,6 +152,9 @@ class AttendCheckFragment : Fragment() {
                 override fun onResponse(call: Call<TestList>, response: Response<TestList>) {
 //                      통신 성공
                     Toast.makeText(activity, "출석 완료!", Toast.LENGTH_SHORT).show()
+
+                    viewModel.attendState = true
+                    viewModel.attendWay = 1
 
                     binding.attendCheckImage.setImageResource(R.drawable.ic_baseline_check_circle_24)
                     binding.testText.text = "출석 완료"
