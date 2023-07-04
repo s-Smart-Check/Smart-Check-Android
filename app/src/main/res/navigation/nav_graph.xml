@@ -8,7 +8,11 @@
         android:id="@+id/navigation_attend_check"
         android:name="com.example.smartattendancecheckapp.ui.attendcheck.AttendCheckFragment"
         android:label="AttendCheckFragment"
-        tools:layout="@layout/fragment_attend_check"/>
+        tools:layout="@layout/fragment_attend_check">
+        <action
+            android:id="@+id/action_attent_check_to_enroll"
+            app:destination="@id/navigation_enroll" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_calendar"
         android:name="com.example.smartattendancecheckapp.ui.CalendarCheckFragment"
@@ -19,4 +23,14 @@
         android:name="com.example.smartattendancecheckapp.ui.SeatAwayFragment"
         android:label="SeatAwayFragment"
         tools:layout="@layout/fragment_seat_away"/>
+
+    <fragment
+        android:id="@+id/navigation_enroll"
+        android:name="com.example.smartattendancecheckapp.ui.enrollface.EnrollFaceFragment"
+        android:label="EnrollFaceFragment/"
+        tools:layout="@layout/fragment_enroll_face">
+        <action
+            android:id="@+id/action_navigation_enroll_to_navigation_attend_check"
+            app:destination="@id/navigation_attend_check" />
+    </fragment>
 </navigation>

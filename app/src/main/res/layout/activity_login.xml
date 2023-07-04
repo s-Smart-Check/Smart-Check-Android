@@ -49,13 +49,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:hint="비밀 번호"
+            android:hint="비밀번호"
             android:inputType="textPassword"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_login_password" />
-
-
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardview_login_login"
