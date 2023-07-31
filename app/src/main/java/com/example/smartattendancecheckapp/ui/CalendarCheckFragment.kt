@@ -39,11 +39,18 @@ class CalendarCheckFragment : Fragment() {
             calendar.setOnDateChangeListener { _, year, month, day ->
                 var dateString = "$year$month$day"
 
+                tvCalendarDate.text = "${year}년 ${month}월 ${day}일"
                 Log.d("캘린더 뷰 태그", dateString)
 
                 retrofitService.getDateAttendance(dateString).enqueue(object : retrofit2.Callback<AttendanceCalendarRes> {
                     // 정상적으로 응답이 온 경우
                     override fun onResponse(call: Call<AttendanceCalendarRes>, response: Response<AttendanceCalendarRes>) {
+                        tvCalendarClassName.text = "수업명: ${response.body()!!.className}"
+                        tvCalendarProfessorName.text = "교수 명: ${response.body()!!.professorName}"
+                        when (response.body()!!.isAttendance) {
+                            true -> tvCalendarAttendance.text = "출석 결과: 출석"
+                            false -> tvCalendarAttendance.text = "출석 결과: 결석"
+                        }
 
                     }
                     // 통신에 실패한 경우
