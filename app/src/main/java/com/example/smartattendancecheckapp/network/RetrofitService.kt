@@ -7,6 +7,7 @@ import com.example.smartattendancecheckapp.model.response.LoginRes
 import com.example.smartattendancecheckapp.model.response.SignUpRes
 import com.example.smartattendancecheckapp.model.response.StudentAttendanceRes
 import com.example.smartattendancecheckapp.model.TestList
+import com.example.smartattendancecheckapp.model.request.AttendanceCalendar
 import com.example.smartattendancecheckapp.model.response.AttendanceCalendarRes
 import okhttp3.MultipartBody
 import retrofit2.Call
@@ -45,9 +46,9 @@ interface RetrofitService {
         @Part imageFile: List<MultipartBody.Part>
     ): Call<String>
 
-    @GET("calendar/{date}")
+    @POST("checkPastAttend")
     fun getDateAttendance(
-        @Path("date") date: String
+        @Body attendanceCalendar: AttendanceCalendar
     ): Call<AttendanceCalendarRes>
 
     // 다른 값도 같이 전송하는 경우

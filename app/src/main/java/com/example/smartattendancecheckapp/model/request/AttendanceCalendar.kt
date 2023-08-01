@@ -1,5 +1,6 @@
 package com.example.smartattendancecheckapp.model.request
 
 data class AttendanceCalendar(
-    val date: String
+    val attendanceDate: String,
+    val stdId: String
 )
