@@ -1,10 +1,8 @@
 package com.example.smartattendancecheckapp.ui.attendcheck
 
 import android.Manifest
-import android.content.ContentValues
 import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,22 +11,16 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.isVisible
 import androidx.navigation.NavController
-import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import com.example.smartattendancecheckapp.R
 import com.example.smartattendancecheckapp.databinding.FragmentAttendCheckBinding
-import com.example.smartattendancecheckapp.model.TestList
 import com.example.smartattendancecheckapp.model.request.StudentAttendanceData
 import com.example.smartattendancecheckapp.model.response.StudentAttendanceRes
 import com.example.smartattendancecheckapp.network.RetrofitClient
-import com.example.smartattendancecheckapp.ui.enrollface.EnrollFaceFragment
-import com.example.smartattendancecheckapp.ui.main2.MainActivity2
 import com.example.smartattendancecheckapp.ui.Login.usrNum
 import retrofit2.Call
 import retrofit2.Response
-import java.text.SimpleDateFormat
-import java.util.*
 
 class AttendCheckFragment : Fragment() {
 

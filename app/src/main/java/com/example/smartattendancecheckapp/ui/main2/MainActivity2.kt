@@ -7,7 +7,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.smartattendancecheckapp.R
 import com.example.smartattendancecheckapp.databinding.ActivityMain2Binding
-import com.example.smartattendancecheckapp.ui.enrollface.EnrollFaceFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity2 : AppCompatActivity() {
