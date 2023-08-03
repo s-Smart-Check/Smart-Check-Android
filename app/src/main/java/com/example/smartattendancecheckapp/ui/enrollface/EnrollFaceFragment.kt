@@ -64,17 +64,13 @@ class EnrollFaceFragment : Fragment() {
     // 카메라를 실행한 후 찍은 사진을 저장
     var pictureUri: Uri? = null
     private val getTakePicture = registerForActivityResult(ActivityResultContracts.TakePicture()) {
-        Log.d("zzz", "${pictureUri}")
 
         val file = File(absolutelyPath(pictureUri, requireContext()))
-        Log.d("zzz", "$file")
 
         val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
         val body = MultipartBody.Part.createFormData("profile", file.name, requestFile)
 
         photoMultiPartList.add(body)
-        Log.d("zzz", body.toString())
-
 
         if(it) {
             when(photoIndexEnroll) {

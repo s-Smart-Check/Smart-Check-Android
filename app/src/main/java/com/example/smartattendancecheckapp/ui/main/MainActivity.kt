@@ -28,7 +28,6 @@ class MainActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         splashScreen.setOnExitAnimationListener { splashScreenView ->
-            // Create your custom animation.
             val slideUp = ObjectAnimator.ofFloat(
                 splashScreenView,
                 View.TRANSLATION_Y,
@@ -38,10 +37,8 @@ class MainActivity : AppCompatActivity() {
             slideUp.interpolator = AnticipateInterpolator()
             slideUp.duration = 3000L
 
-            // Call SplashScreenView.remove at the end of your custom animation.
             slideUp.doOnEnd { splashScreenView.remove() }
 
-            // Run your animation.
             slideUp.start()
         }
 
