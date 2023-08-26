@@ -48,7 +48,6 @@ class SignUpFaceFragment : Fragment() {
         // 사진 추가 버튼 클릭 시
         binding.btnCamera.setOnClickListener {
             pictureUri = createImageFile(usrNum)
-            Log.d("사진 Uri", "$pictureUri")
             getTakePicture.launch(pictureUri)
         }
 
@@ -74,17 +73,13 @@ class SignUpFaceFragment : Fragment() {
     // 카메라를 실행한 후 찍은 사진을 저장
     var pictureUri: Uri? = null
     private val getTakePicture = registerForActivityResult(ActivityResultContracts.TakePicture()) {
-        Log.d("zzz", "${pictureUri}")
 
         val file = File(absolutelyPath(pictureUri, requireContext()))
-        Log.d("zzz", "$file")
 
         val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
         val body = MultipartBody.Part.createFormData("profile", file.name, requestFile)
 
         photoMultiPartList.add(body)
-        Log.d("zzz", body.toString())
-
 
         if(it) {
             when(photoIndexSignUP) {
@@ -99,7 +94,7 @@ class SignUpFaceFragment : Fragment() {
     }
 
     // 절대경로 변환
-    fun absolutelyPath(path: Uri?, context : Context): String {
+    private fun absolutelyPath(path: Uri?, context : Context): String {
         var proj: Array<String> = arrayOf(MediaStore.Images.Media.DATA)
         var c: Cursor? = context.contentResolver.query(path!!, proj, null, null, null)
         var index = c?.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
@@ -115,7 +110,6 @@ class SignUpFaceFragment : Fragment() {
     private fun createImageFile(studentNum: String): Uri? {
         val content = ContentValues().apply {
             photoIndexSignUP += 1
-            Log.d("사진 생성", "${studentNum}_${photoIndexSignUP}")
             put(MediaStore.Images.Media.DISPLAY_NAME, "${studentNum}_${photoIndexSignUP}.jpg")
             put(MediaStore.Images.Media.MIME_TYPE, "image/jpg")
         }
@@ -134,7 +128,7 @@ class SignUpFaceFragment : Fragment() {
             }
 
             override fun onFailure(call: Call<String>, t: Throwable) {
-                Log.d("test", t.message.toString())
+
             }
 
         })

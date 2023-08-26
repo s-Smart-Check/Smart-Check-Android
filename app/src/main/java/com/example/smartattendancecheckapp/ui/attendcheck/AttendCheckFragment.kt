@@ -125,7 +125,7 @@ class AttendCheckFragment : Fragment() {
                                     }
                                 }
                             }
-                            400 ->{
+                            400 -> {
                                 Toast.makeText(activity, "출석 실패", Toast.LENGTH_SHORT).show()
                                 binding.refreshLayout.isRefreshing = false
                             }

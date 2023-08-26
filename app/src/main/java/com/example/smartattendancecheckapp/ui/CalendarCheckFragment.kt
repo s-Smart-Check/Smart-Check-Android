@@ -49,7 +49,6 @@ class CalendarCheckFragment : Fragment() {
                 dateString = "$year-$myMonth-$myDay"
 
                 tvCalendarDate.text = "${year}년 ${month + 1}월 ${day}일"
-                Log.d("캘린더 뷰 태그", dateString)
 
                 retrofitService.getDateAttendance(AttendanceCalendar(dateString, usrNum)).enqueue(object : retrofit2.Callback<AttendanceCalendarRes> {
                     // 정상적으로 응답이 온 경우
