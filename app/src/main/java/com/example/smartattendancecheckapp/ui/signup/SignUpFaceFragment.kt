@@ -45,14 +45,19 @@ class SignUpFaceFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val receivedValue1 = arguments?.getString("usrNum")
+
         // 사진 추가 버튼 클릭 시
         binding.btnCamera.setOnClickListener {
-            pictureUri = createImageFile(usrNum)
+            pictureUri = receivedValue1?.let { it1 -> createImageFile(it1) }
             getTakePicture.launch(pictureUri)
         }
 
         binding.btnEnroll.setOnClickListener {
-//            sendImage(usrNum, photoMultiPartList)
+            if (receivedValue1 != null) {
+                Log.d("er", "$receivedValue1")
+                sendImage(receivedValue1, photoMultiPartList)
+            }
             requireActivity().onBackPressed()
         }
     }

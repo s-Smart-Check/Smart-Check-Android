@@ -13,7 +13,7 @@ object RetrofitClient {
 //    private const val BASEURL = "http://172.16.38.202:8080/"
 //    private const val BASEURL = "http://192.168.137.109:8080/"
 //    private const val BASEURL = "http://192.168.137.29:8080"
-    private const val BASEURL = "http://192.168.137.237:8080"
+    private const val BASEURL = "http://192.168.137.100:8080/"
 
 //    private const val BASEURL: String = "https://api.chucknorris.io/"
 

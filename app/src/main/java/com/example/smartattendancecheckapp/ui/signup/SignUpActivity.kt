@@ -99,9 +99,15 @@ class SignUpActivity : AppCompatActivity() {
             usrNum = binding.edtJoinStudentNum.toString()
 
             binding.layoutSignUp.isVisible = false
+            val bundle = Bundle()
+            bundle.putString("usrNum", binding.edtJoinStudentNum.text.toString())
+
+            val signUpFaceFragment = SignUpFaceFragment()
+            signUpFaceFragment.arguments = bundle
+
             supportFragmentManager
                 .beginTransaction()
-                .replace(R.id.layout_signup_face, SignUpFaceFragment())
+                .replace(R.id.layout_signup_face, signUpFaceFragment)
                 .commit()
         }
     }
