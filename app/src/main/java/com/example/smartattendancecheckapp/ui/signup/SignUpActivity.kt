@@ -75,40 +75,36 @@ class SignUpActivity : AppCompatActivity() {
                         if(response.isSuccessful) {
                             when(response.code()) {
                                 200 -> {
-                                    Toast.makeText(this@SignUpActivity, "회원가입 성공", Toast.LENGTH_SHORT).show()
-                                    finish()
+                                    Toast.makeText(this@SignUpActivity, "사용자 등록 성공", Toast.LENGTH_SHORT).show()
+
+                                    usrNum = binding.edtJoinStudentNum.toString()
+
+                                    binding.layoutSignUp.isVisible = false
+                                    val bundle = Bundle()
+                                    bundle.putString("usrNum", binding.edtJoinStudentNum.text.toString())
+
+                                    val signUpFaceFragment = SignUpFaceFragment()
+                                    signUpFaceFragment.arguments = bundle
+
+                                    supportFragmentManager
+                                        .beginTransaction()
+                                        .replace(R.id.layout_signup_face, signUpFaceFragment)
+                                        .commit()
                                 }
                                 400 ->{
-                                    Toast.makeText(this@SignUpActivity, "회원가입 실패", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(this@SignUpActivity, "사용자 등록 실패", Toast.LENGTH_SHORT).show()
                                 }
                             }
                         }
                     }
                     override fun onFailure(call: Call<SignUpRes>, t: Throwable) {
-                        Toast.makeText(this@SignUpActivity, "회원가입 실패", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@SignUpActivity, "사용자 등록 실패", Toast.LENGTH_SHORT).show()
                     }
                 })
             }
             else {
                 Toast.makeText(this@SignUpActivity, "아이디, 비밀번호 입력하세요", Toast.LENGTH_SHORT).show()
             }
-        }
-
-        // 사진 추가 버튼 클릭 시
-        binding.btnJoinAddPhoto.setOnClickListener {
-            usrNum = binding.edtJoinStudentNum.toString()
-
-            binding.layoutSignUp.isVisible = false
-            val bundle = Bundle()
-            bundle.putString("usrNum", binding.edtJoinStudentNum.text.toString())
-
-            val signUpFaceFragment = SignUpFaceFragment()
-            signUpFaceFragment.arguments = bundle
-
-            supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.layout_signup_face, signUpFaceFragment)
-                .commit()
         }
     }
 
