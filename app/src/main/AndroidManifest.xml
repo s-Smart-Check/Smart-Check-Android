@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-    <!-- 인터넷 권한 설정 -->
+    <!-- 네트워크 권한 설정 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- 카메라 권한 설정 -->
     <uses-permission android:name="android.permission.CAMERA" />
@@ -17,6 +17,7 @@
         android:required="false" />
 
     <application
+        android:name=".app.di.AttendanceApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:usesCleartextTraffic="true"
@@ -29,7 +30,7 @@
         android:networkSecurityConfig="@xml/network_security_config"
         tools:targetApi="31">
         <activity
-            android:name=".ui.main2.MainActivity2"
+            android:name=".presentation.ui.main2.MainActivity2"
             android:exported="false"
             android:theme="@style/Theme.SmartAttendanceCheckApp">
             <meta-data
@@ -37,7 +38,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".ui.signup.SignUpActivity"
+            android:name=".presentation.ui.signup.SignUpActivity"
             android:exported="false"
             android:theme="@style/Theme.SmartAttendanceCheckApp">
             <meta-data
@@ -45,7 +46,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".ui.Login.LoginActivity"
+            android:name=".presentation.ui.Login.LoginActivity"
             android:exported="false"
             android:theme="@style/Theme.SmartAttendanceCheckApp">
             <meta-data
@@ -53,7 +54,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".ui.main.MainActivity"
+            android:name=".presentation.ui.main.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

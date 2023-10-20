@@ -6,7 +6,7 @@
     app:startDestination="@id/navigation_attend_check">
     <fragment
         android:id="@+id/navigation_attend_check"
-        android:name="com.example.smartattendancecheckapp.ui.attendcheck.AttendCheckFragment"
+        android:name="com.example.smartattendancecheckapp.presentation.ui.attendcheck.AttendCheckFragment"
         android:label="AttendCheckFragment"
         tools:layout="@layout/fragment_attend_check">
         <action
@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/navigation_calendar"
-        android:name="com.example.smartattendancecheckapp.ui.CalendarCheckFragment"
+        android:name="com.example.smartattendancecheckapp.presentation.ui.CalendarCheckFragment"
         android:label="CalendarCheckFragment"
         tools:layout="@layout/fragment_calendar_check"/>
     <fragment
@@ -26,7 +26,7 @@
 
     <fragment
         android:id="@+id/navigation_enroll"
-        android:name="com.example.smartattendancecheckapp.ui.enrollface.EnrollFaceFragment"
+        android:name="com.example.smartattendancecheckapp.presentation.ui.enrollface.EnrollFaceFragment"
         android:label="EnrollFaceFragment/"
         tools:layout="@layout/fragment_enroll_face">
         <action
