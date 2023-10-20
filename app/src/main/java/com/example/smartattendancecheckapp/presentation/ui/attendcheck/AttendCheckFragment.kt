@@ -17,7 +17,6 @@ import com.example.smartattendancecheckapp.R
 import com.example.smartattendancecheckapp.databinding.FragmentAttendCheckBinding
 import com.example.smartattendancecheckapp.domain.model.request.StudentAttendanceData
 import com.example.smartattendancecheckapp.domain.model.response.StudentAttendanceRes
-import com.example.smartattendancecheckapp.app.network.NetWorkModule
 import com.example.smartattendancecheckapp.presentation.ui.Login.usrNum
 import retrofit2.Call
 import retrofit2.Response
@@ -84,61 +83,61 @@ class AttendCheckFragment : Fragment() {
 
         binding.refreshLayout.setOnRefreshListener {
             // 실제 통신
-            NetWorkModule.retrofitService.requestAttendanceInfo(StudentAttendanceData(usrNum)).enqueue(object : retrofit2.Callback<StudentAttendanceRes> {
-                override fun onResponse(call: Call<StudentAttendanceRes>, response: Response<StudentAttendanceRes>) {
-
-                    if(response.isSuccessful) {
-                        when(response.code()) {
-                            200 -> {
-                                // 통신 성공
-                                when(response.body()!!.attendance) {
-                                    true -> {
-                                        viewModel.attendState = true
-                                        Toast.makeText(activity, "출석 완료!", Toast.LENGTH_SHORT).show()
-
-                                        if(response.body()!!.state == 1) {
-                                            viewModel.attendWay = 1
-                                            Toast.makeText(activity, "얼굴 재등록 필요!!", Toast.LENGTH_SHORT).show()
-                                            binding.attendCheckCardviewWarning.isVisible = true
-                                        }
-
-                                        binding.attendCheckImage.setImageResource(R.drawable.ic_baseline_check_circle_24)
-                                        binding.testText.text = "출석 완료"
-
-                                        binding.attendCheckClassName.text="${response.body()!!.className}"
-                                        binding.attendCheckProfessor.text="${response.body()!!.professor}" + " 교수님"
-
-                                        binding.refreshLayout.isRefreshing = false
-                                    }
-                                    false -> {
-                                        viewModel.attendState = false
-                                        Toast.makeText(activity, "출석 실패", Toast.LENGTH_SHORT).show()
-
-                                        binding.attendCheckImage.setImageResource(R.drawable.ic_baseline_cancel_24)
-                                        binding.testText.text = ""
-
-                                        binding.attendCheckClassName.text=""
-                                        binding.attendCheckProfessor.text=""
-
-                                        binding.attendCheckCardviewWarning.isVisible = false
-                                        binding.refreshLayout.isRefreshing = false
-                                    }
-                                }
-                            }
-                            400 -> {
-                                Toast.makeText(activity, "출석 실패", Toast.LENGTH_SHORT).show()
-                                binding.refreshLayout.isRefreshing = false
-                            }
-                        }
-                    }
-                }
-
-                override fun onFailure(call: Call<StudentAttendanceRes>, t: Throwable) {
-                    // 통신 실패
-                    Toast.makeText(activity, "출석 실패", Toast.LENGTH_SHORT).show()
-                }
-
-            })
+//            NetWorkModule.retrofitService.requestAttendanceInfo(StudentAttendanceData(usrNum)).enqueue(object : retrofit2.Callback<StudentAttendanceRes> {
+//                override fun onResponse(call: Call<StudentAttendanceRes>, response: Response<StudentAttendanceRes>) {
+//
+//                    if(response.isSuccessful) {
+//                        when(response.code()) {
+//                            200 -> {
+//                                // 통신 성공
+//                                when(response.body()!!.attendance) {
+//                                    true -> {
+//                                        viewModel.attendState = true
+//                                        Toast.makeText(activity, "출석 완료!", Toast.LENGTH_SHORT).show()
+//
+//                                        if(response.body()!!.state == 1) {
+//                                            viewModel.attendWay = 1
+//                                            Toast.makeText(activity, "얼굴 재등록 필요!!", Toast.LENGTH_SHORT).show()
+//                                            binding.attendCheckCardviewWarning.isVisible = true
+//                                        }
+//
+//                                        binding.attendCheckImage.setImageResource(R.drawable.ic_baseline_check_circle_24)
+//                                        binding.testText.text = "출석 완료"
+//
+//                                        binding.attendCheckClassName.text="${response.body()!!.className}"
+//                                        binding.attendCheckProfessor.text="${response.body()!!.professor}" + " 교수님"
+//
+//                                        binding.refreshLayout.isRefreshing = false
+//                                    }
+//                                    false -> {
+//                                        viewModel.attendState = false
+//                                        Toast.makeText(activity, "출석 실패", Toast.LENGTH_SHORT).show()
+//
+//                                        binding.attendCheckImage.setImageResource(R.drawable.ic_baseline_cancel_24)
+//                                        binding.testText.text = ""
+//
+//                                        binding.attendCheckClassName.text=""
+//                                        binding.attendCheckProfessor.text=""
+//
+//                                        binding.attendCheckCardviewWarning.isVisible = false
+//                                        binding.refreshLayout.isRefreshing = false
+//                                    }
+//                                }
+//                            }
+//                            400 -> {
+//                                Toast.makeText(activity, "출석 실패", Toast.LENGTH_SHORT).show()
+//                                binding.refreshLayout.isRefreshing = false
+//                            }
+//                        }
+//                    }
+//                }
+//
+//                override fun onFailure(call: Call<StudentAttendanceRes>, t: Throwable) {
+//                    // 통신 실패
+//                    Toast.makeText(activity, "출석 실패", Toast.LENGTH_SHORT).show()
+//                }
+//
+//            })
 
             // 테스트 통신
 //            RetrofitClient.retrofitService.getTestList().enqueue(object : retrofit2.Callback<TestList> {

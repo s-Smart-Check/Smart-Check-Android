@@ -11,25 +11,28 @@ import com.example.smartattendancecheckapp.domain.model.request.AttendanceCalend
 import com.example.smartattendancecheckapp.domain.model.response.AttendanceCalendarRes
 import okhttp3.MultipartBody
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
+import retrofit2.http.Query
 
 interface NetworkApi {
+
     @GET("jokes/categories")
-    fun getTestList(): Call<TestList>
+    suspend fun getTestList(): Response<TestList>
 
     @POST("tempJoin")
     fun requestSignUp(
         @Body signupData : SignUpData
-    ): Call<SignUpRes>
+    ): Response<SignUpRes>
 
     @POST("tempLogin")
     fun requestLogin(
         @Body loginData: LoginData
-    ): Call<LoginRes>
+    ): Response<LoginRes>
 
     @POST("checkAttend")
     fun requestAttendanceInfo(
@@ -41,7 +44,7 @@ interface NetworkApi {
     fun sendImage(
         @Part("studentNum") studentNum: String,
         @Part imageFile: List<MultipartBody.Part>
-    ): Call<String>
+    ): Response<String>
 
     @POST("checkPastAttend")
     fun getDateAttendance(

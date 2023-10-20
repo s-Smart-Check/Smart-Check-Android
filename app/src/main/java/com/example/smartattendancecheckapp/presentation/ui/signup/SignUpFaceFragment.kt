@@ -14,8 +14,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.viewModels
 import com.example.smartattendancecheckapp.databinding.FragmentSignUpFaceBinding
-import com.example.smartattendancecheckapp.app.network.NetWorkModule
+import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -25,10 +26,12 @@ import java.io.File
 
 var photoIndexSignUP: Int = 0
 
+@AndroidEntryPoint
 class SignUpFaceFragment : Fragment() {
 
     private lateinit var binding : FragmentSignUpFaceBinding
     private var photoMultiPartList = mutableListOf<MultipartBody.Part>()
+    val viewModel: SignUpFaceViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,6 +45,7 @@ class SignUpFaceFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         val receivedValue1 = arguments?.getString("usrNum")
 
         // 사진 추가 버튼 클릭 시
@@ -52,7 +56,6 @@ class SignUpFaceFragment : Fragment() {
 
         binding.btnEnroll.setOnClickListener {
             if (receivedValue1 != null) {
-                Log.d("er", "$receivedValue1")
                 sendImage(receivedValue1, photoMultiPartList)
             }
             requireActivity().onBackPressed()
@@ -119,20 +122,17 @@ class SignUpFaceFragment : Fragment() {
     }
 
     // 이미지 서버로 전송
-    fun sendImage(studentNum: String, body: List<MultipartBody.Part>) {
-        NetWorkModule.retrofitService.sendImage(studentNum, body).enqueue(object: retrofit2.Callback<String>{
-            override fun onResponse(call: Call<String>, response: Response<String>) {
-                if(response.isSuccessful){
-                    Toast.makeText(requireContext(), "이미지 전송 성공", Toast.LENGTH_SHORT).show()
-                }else{
-                    Toast.makeText(requireContext(), "이미지 전송 실패", Toast.LENGTH_SHORT).show()
+    fun sendImage(studentNum: String, imageFiles: List<MultipartBody.Part>) {
+        viewModel.requestEnrollFace(studentNum, imageFiles)
+        viewModel.enrollFaceState.observe(viewLifecycleOwner) { state ->
+            when(state) {
+                EnrollFaceState.SUCCESS -> {
+                    Toast.makeText(requireContext(), "얼굴 등록 성공", Toast.LENGTH_SHORT).show()
+                }
+                EnrollFaceState.FAIL -> {
+                    Toast.makeText(requireContext(), "얼굴 등록 실패", Toast.LENGTH_SHORT).show()
                 }
             }
-
-            override fun onFailure(call: Call<String>, t: Throwable) {
-
-            }
-
-        })
+        }
     }
 }

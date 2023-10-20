@@ -17,7 +17,6 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.example.smartattendancecheckapp.R
 import com.example.smartattendancecheckapp.databinding.FragmentEnrollFaceBinding
-import com.example.smartattendancecheckapp.app.network.NetWorkModule
 import com.example.smartattendancecheckapp.presentation.ui.Login.usrNum
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -110,20 +109,20 @@ class EnrollFaceFragment : Fragment() {
 
     // 이미지 서버로 전송
     fun sendImage(studentNum: String, body: List<MultipartBody.Part>) {
-        NetWorkModule.retrofitService.sendImage(studentNum, body).enqueue(object: retrofit2.Callback<String>{
-            override fun onResponse(call: Call<String>, response: Response<String>) {
-                if(response.isSuccessful){
-                    Toast.makeText(requireContext(), "이미지 전송 성공", Toast.LENGTH_SHORT).show()
-                }else{
-                    Toast.makeText(requireContext(), "이미지 전송 실패", Toast.LENGTH_SHORT).show()
-                }
-            }
-
-            override fun onFailure(call: Call<String>, t: Throwable) {
-                Log.d("test", t.message.toString())
-            }
-
-        })
+//        NetWorkModule.retrofitService.sendImage(studentNum, body).enqueue(object: retrofit2.Callback<String>{
+//            override fun onResponse(call: Call<String>, response: Response<String>) {
+//                if(response.isSuccessful){
+//                    Toast.makeText(requireContext(), "이미지 전송 성공", Toast.LENGTH_SHORT).show()
+//                }else{
+//                    Toast.makeText(requireContext(), "이미지 전송 실패", Toast.LENGTH_SHORT).show()
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<String>, t: Throwable) {
+//                Log.d("test", t.message.toString())
+//            }
+//
+//        })
     }
 
 }

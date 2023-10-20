@@ -15,7 +15,9 @@ import com.example.smartattendancecheckapp.R
 import com.example.smartattendancecheckapp.databinding.ActivityMainBinding
 import com.example.smartattendancecheckapp.presentation.ui.Login.LoginActivity
 import com.example.smartattendancecheckapp.presentation.ui.signup.SignUpActivity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
