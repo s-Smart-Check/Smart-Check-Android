@@ -15,15 +15,9 @@
     </fragment>
     <fragment
         android:id="@+id/navigation_calendar"
-        android:name="com.example.smartattendancecheckapp.presentation.ui.CalendarCheckFragment"
+        android:name="com.example.smartattendancecheckapp.presentation.ui.calendarcheck.CalendarCheckFragment"
         android:label="CalendarCheckFragment"
         tools:layout="@layout/fragment_calendar_check"/>
-    <fragment
-        android:id="@+id/navigation_seat_away"
-        android:name="com.example.smartattendancecheckapp.ui.SeatAwayFragment"
-        android:label="SeatAwayFragment"
-        tools:layout="@layout/fragment_seat_away"/>
-
     <fragment
         android:id="@+id/navigation_enroll"
         android:name="com.example.smartattendancecheckapp.presentation.ui.enrollface.EnrollFaceFragment"

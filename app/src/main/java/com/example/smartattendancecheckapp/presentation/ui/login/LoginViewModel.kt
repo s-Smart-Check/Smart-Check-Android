@@ -1,4 +1,4 @@
-package com.example.smartattendancecheckapp.presentation.ui.Login
+package com.example.smartattendancecheckapp.presentation.ui.login
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

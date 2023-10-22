@@ -1,20 +1,15 @@
-package com.example.smartattendancecheckapp.presentation.ui.Login
+package com.example.smartattendancecheckapp.presentation.ui.login
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.example.smartattendancecheckapp.R
 import com.example.smartattendancecheckapp.databinding.ActivityLoginBinding
-import com.example.smartattendancecheckapp.domain.model.request.LoginData
-import com.example.smartattendancecheckapp.domain.model.response.LoginRes
 import com.example.smartattendancecheckapp.presentation.ui.main2.MainActivity2
 import dagger.hilt.android.AndroidEntryPoint
-import retrofit2.Call
-import retrofit2.Response
 
 lateinit var usrNum : String
 
@@ -38,32 +33,10 @@ class LoginActivity : AppCompatActivity() {
                 usrNum = binding.edtLoginStudentNum.toString()
 
 //                테스트용
-//                viewModel.requestTest()
-//                viewModel.loginState.observe(this) {
-//                    when(viewModel.loginState.value) {
-//                        LoginState.SUCCESS -> {
-//                            Toast.makeText(this@LoginActivity, "로그인 성공", Toast.LENGTH_SHORT).show()
-//                            val intent = Intent(this@LoginActivity, MainActivity2::class.java)
-//                            startActivity(intent)
-//                        }
-//                        LoginState.FAIL -> {
-//                            Toast.makeText(this@LoginActivity, "로그인 실패", Toast.LENGTH_SHORT).show()
-//                        }
-//                        else -> {}
-//                    }
-//                }
-
-//                실제 로그인
-                viewModel.requestLogin(
-                    LoginData(
-                        binding.edtLoginStudentNum.text.toString(),
-                        binding.edtLoginPassword.text.toString()
-                    )
-                )
+                viewModel.requestTest()
                 viewModel.loginState.observe(this) {
                     when(viewModel.loginState.value) {
                         LoginState.SUCCESS -> {
-                            usrNum = binding.edtLoginStudentNum.text.toString()
                             Toast.makeText(this@LoginActivity, "로그인 성공", Toast.LENGTH_SHORT).show()
                             val intent = Intent(this@LoginActivity, MainActivity2::class.java)
                             startActivity(intent)
@@ -74,6 +47,28 @@ class LoginActivity : AppCompatActivity() {
                         else -> {}
                     }
                 }
+
+//                실제 로그인
+//                viewModel.requestLogin(
+//                    LoginData(
+//                        binding.edtLoginStudentNum.text.toString(),
+//                        binding.edtLoginPassword.text.toString()
+//                    )
+//                )
+//                viewModel.loginState.observe(this) {
+//                    when(viewModel.loginState.value) {
+//                        LoginState.SUCCESS -> {
+//                            usrNum = binding.edtLoginStudentNum.text.toString()
+//                            Toast.makeText(this@LoginActivity, "로그인 성공", Toast.LENGTH_SHORT).show()
+//                            val intent = Intent(this@LoginActivity, MainActivity2::class.java)
+//                            startActivity(intent)
+//                        }
+//                        LoginState.FAIL -> {
+//                            Toast.makeText(this@LoginActivity, "로그인 실패", Toast.LENGTH_SHORT).show()
+//                        }
+//                        else -> {}
+//                    }
+//                }
 
 //                retrofitService.requestLogin(
 //                    LoginData(

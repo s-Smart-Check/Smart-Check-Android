@@ -13,16 +13,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.example.smartattendancecheckapp.R
 import com.example.smartattendancecheckapp.databinding.FragmentEnrollFaceBinding
-import com.example.smartattendancecheckapp.presentation.ui.Login.usrNum
+import com.example.smartattendancecheckapp.presentation.ui.login.usrNum
+import com.example.smartattendancecheckapp.presentation.ui.signup.EnrollFaceState
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import retrofit2.Call
-import retrofit2.Response
 import java.io.File
 
 var photoIndexEnroll: Int = 0
@@ -32,6 +32,7 @@ class EnrollFaceFragment : Fragment() {
     private lateinit var binding : FragmentEnrollFaceBinding
     private lateinit var navController: NavController
     private var photoMultiPartList = mutableListOf<MultipartBody.Part>()
+    private val viewModel = ViewModelProvider(this)[EnrollFaceViewModel::class.java]
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,7 +50,6 @@ class EnrollFaceFragment : Fragment() {
         // 사진 추가 버튼 클릭 시
         binding.btnCamera.setOnClickListener {
             pictureUri = createImageFile(usrNum)
-            Log.d("사진 Uri", "$pictureUri")
             getTakePicture.launch(pictureUri)
         }
 
@@ -61,7 +61,7 @@ class EnrollFaceFragment : Fragment() {
     }
 
     // 카메라를 실행한 후 찍은 사진을 저장
-    var pictureUri: Uri? = null
+    private var pictureUri: Uri? = null
     private val getTakePicture = registerForActivityResult(ActivityResultContracts.TakePicture()) {
 
         val file = File(absolutelyPath(pictureUri, requireContext()))
@@ -108,21 +108,18 @@ class EnrollFaceFragment : Fragment() {
     }
 
     // 이미지 서버로 전송
-    fun sendImage(studentNum: String, body: List<MultipartBody.Part>) {
-//        NetWorkModule.retrofitService.sendImage(studentNum, body).enqueue(object: retrofit2.Callback<String>{
-//            override fun onResponse(call: Call<String>, response: Response<String>) {
-//                if(response.isSuccessful){
-//                    Toast.makeText(requireContext(), "이미지 전송 성공", Toast.LENGTH_SHORT).show()
-//                }else{
-//                    Toast.makeText(requireContext(), "이미지 전송 실패", Toast.LENGTH_SHORT).show()
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<String>, t: Throwable) {
-//                Log.d("test", t.message.toString())
-//            }
-//
-//        })
+    private fun sendImage(studentNum: String, imageFiles: List<MultipartBody.Part>) {
+        viewModel.requestEnrollFace(studentNum, imageFiles)
+        viewModel.enrollFaceState.observe(viewLifecycleOwner) { state ->
+            when(state) {
+                EnrollFaceState.SUCCESS -> {
+                    Toast.makeText(requireContext(), "얼굴 등록 성공", Toast.LENGTH_SHORT).show()
+                }
+                EnrollFaceState.FAIL -> {
+                    Toast.makeText(requireContext(), "얼굴 등록 실패", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
     }
 
 }

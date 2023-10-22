@@ -37,7 +37,7 @@ interface NetworkApi {
     @POST("checkAttend")
     fun requestAttendanceInfo(
         @Body usrNum: StudentAttendanceData
-    ): Call<StudentAttendanceRes>
+    ): Response<StudentAttendanceRes>
 
     @Multipart
     @POST("image")
@@ -49,7 +49,7 @@ interface NetworkApi {
     @POST("checkPastAttend")
     fun getDateAttendance(
         @Body attendanceCalendar: AttendanceCalendar
-    ): Call<AttendanceCalendarRes>
+    ): Response<AttendanceCalendarRes>
 
     // 다른 값도 같이 전송하는 경우
 //    @Multipart

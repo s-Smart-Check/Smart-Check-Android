@@ -13,7 +13,7 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.databinding.DataBindingUtil
 import com.example.smartattendancecheckapp.R
 import com.example.smartattendancecheckapp.databinding.ActivityMainBinding
-import com.example.smartattendancecheckapp.presentation.ui.Login.LoginActivity
+import com.example.smartattendancecheckapp.presentation.ui.login.LoginActivity
 import com.example.smartattendancecheckapp.presentation.ui.signup.SignUpActivity
 import dagger.hilt.android.AndroidEntryPoint
 

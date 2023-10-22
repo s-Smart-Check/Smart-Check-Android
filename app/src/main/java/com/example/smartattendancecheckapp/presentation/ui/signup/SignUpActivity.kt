@@ -10,13 +10,8 @@ import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import com.example.smartattendancecheckapp.R
 import com.example.smartattendancecheckapp.databinding.ActivitySignupBinding
-import retrofit2.Call
-import retrofit2.Response
-import com.example.smartattendancecheckapp.domain.model.request.SignUpData
-import com.example.smartattendancecheckapp.domain.model.response.SignUpRes
-import com.example.smartattendancecheckapp.presentation.ui.Login.usrNum
+import com.example.smartattendancecheckapp.presentation.ui.login.usrNum
 import dagger.hilt.android.AndroidEntryPoint
-import okhttp3.MultipartBody
 
 var photoIndex: Int = 0
 

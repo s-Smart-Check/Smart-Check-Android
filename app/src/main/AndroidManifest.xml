@@ -46,7 +46,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".presentation.ui.Login.LoginActivity"
+            android:name=".presentation.ui.login.LoginActivity"
             android:exported="false"
             android:theme="@style/Theme.SmartAttendanceCheckApp">
             <meta-data

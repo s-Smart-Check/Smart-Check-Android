@@ -122,7 +122,7 @@ class SignUpFaceFragment : Fragment() {
     }
 
     // 이미지 서버로 전송
-    fun sendImage(studentNum: String, imageFiles: List<MultipartBody.Part>) {
+    private fun sendImage(studentNum: String, imageFiles: List<MultipartBody.Part>) {
         viewModel.requestEnrollFace(studentNum, imageFiles)
         viewModel.enrollFaceState.observe(viewLifecycleOwner) { state ->
             when(state) {
