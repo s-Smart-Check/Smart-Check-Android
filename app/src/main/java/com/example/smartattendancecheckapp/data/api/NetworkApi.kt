@@ -25,29 +25,29 @@ interface NetworkApi {
     suspend fun getTestList(): Response<TestList>
 
     @POST("tempJoin")
-    fun requestSignUp(
+    suspend fun requestSignUp(
         @Body signupData : SignUpData
     ): Response<SignUpRes>
 
     @POST("tempLogin")
-    fun requestLogin(
+    suspend fun requestLogin(
         @Body loginData: LoginData
     ): Response<LoginRes>
 
     @POST("checkAttend")
-    fun requestAttendanceInfo(
+    suspend fun requestAttendanceInfo(
         @Body usrNum: StudentAttendanceData
     ): Response<StudentAttendanceRes>
 
     @Multipart
     @POST("image")
-    fun sendImage(
+    suspend fun sendImage(
         @Part("studentNum") studentNum: String,
         @Part imageFile: List<MultipartBody.Part>
     ): Response<String>
 
     @POST("checkPastAttend")
-    fun getDateAttendance(
+    suspend fun getDateAttendance(
         @Body attendanceCalendar: AttendanceCalendar
     ): Response<AttendanceCalendarRes>
 

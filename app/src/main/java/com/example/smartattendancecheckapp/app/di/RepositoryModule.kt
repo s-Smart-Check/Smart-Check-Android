@@ -1,11 +1,13 @@
 package com.example.smartattendancecheckapp.app.di
 
 import com.example.smartattendancecheckapp.data.repoImpl.AttendCheckRepositoryImpl
+import com.example.smartattendancecheckapp.data.repoImpl.CalendarCheckRepositoryImpl
 import com.example.smartattendancecheckapp.data.repoImpl.EnrollFaceRepositoryImpl
 import com.example.smartattendancecheckapp.data.repoImpl.LoginRepositoryImpl
 import com.example.smartattendancecheckapp.data.repoImpl.SignUpRepositoryImpl
 import com.example.smartattendancecheckapp.data.repoImpl.TestRepositoryImpl
 import com.example.smartattendancecheckapp.domain.repo.AttendCheckRepository
+import com.example.smartattendancecheckapp.domain.repo.CalendarCheckRepository
 import com.example.smartattendancecheckapp.domain.repo.EnrollFaceRepository
 import com.example.smartattendancecheckapp.domain.repo.LoginRepository
 import com.example.smartattendancecheckapp.domain.repo.SignUpRepository
@@ -33,4 +35,7 @@ abstract class RepositoryModule {
 
     @Binds
     abstract fun bindAttendCheckRepo(repoImp: AttendCheckRepositoryImpl): AttendCheckRepository
+
+    @Binds
+    abstract fun bindCalendarCheckRepo(repoImp: CalendarCheckRepositoryImpl): CalendarCheckRepository
 }

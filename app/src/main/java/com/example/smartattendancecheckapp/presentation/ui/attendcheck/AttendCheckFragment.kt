@@ -13,6 +13,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.smartattendancecheckapp.R
 import com.example.smartattendancecheckapp.databinding.FragmentAttendCheckBinding
+import com.example.smartattendancecheckapp.domain.model.request.StudentAttendanceData
+import com.example.smartattendancecheckapp.presentation.ui.login.usrNum
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -118,10 +120,10 @@ class AttendCheckFragment : Fragment() {
 //            })
 
 //             테스트 통신
-            viewModel.requestTest()
+//            viewModel.requestTest()
 
 //            실제 통신
-//            viewModel.requestAttendCheck(StudentAttendanceData(usrNum))
+            viewModel.requestAttendCheck(StudentAttendanceData(usrNum))
 
             viewModel.studentAttendanceRes.observe(viewLifecycleOwner) { attendanceInfo ->
                 when(attendanceInfo.attendance) {

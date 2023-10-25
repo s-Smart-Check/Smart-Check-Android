@@ -10,6 +10,7 @@ import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import com.example.smartattendancecheckapp.R
 import com.example.smartattendancecheckapp.databinding.ActivitySignupBinding
+import com.example.smartattendancecheckapp.domain.model.request.SignUpData
 import com.example.smartattendancecheckapp.presentation.ui.login.usrNum
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -35,41 +36,7 @@ class SignUpActivity : AppCompatActivity() {
             if(binding.edtJoinStudentNum.text.toString() != "" && binding.edtJoinPassword.text.toString() != "" && binding.edtJoinStudentName.text.toString() != "") {
 
 //                테스트용
-                viewModel.requestTest()
-                viewModel.signUpState.observe(this) {
-                    when(viewModel.signUpState.value) {
-                        SignUpState.SUCCESS -> {
-                            Toast.makeText(this@SignUpActivity, "사용자 등록 성공", Toast.LENGTH_SHORT).show()
-
-                            usrNum = binding.edtJoinStudentNum.toString()
-
-                            binding.layoutSignUp.isVisible = false
-                            val bundle = Bundle()
-                            bundle.putString("usrNum", binding.edtJoinStudentNum.text.toString())
-
-                            val signUpFaceFragment = SignUpFaceFragment()
-                            signUpFaceFragment.arguments = bundle
-
-                            supportFragmentManager
-                                .beginTransaction()
-                                .replace(R.id.layout_signup_face, signUpFaceFragment)
-                                .commit()
-                        }
-                        SignUpState.FAIL -> {
-                            Toast.makeText(this@SignUpActivity, "사용자 등록 실패", Toast.LENGTH_SHORT).show()
-                        }
-                        else -> {}
-                    }
-                }
-
-//                실제 사용자 등록
-//                viewModel.requestSignUp(
-//                    SignUpData(
-//                        binding.edtJoinStudentNum.text.toString(),
-//                        binding.edtJoinStudentName.text.toString(),
-//                        binding.edtJoinPassword.text.toString()
-//                    )
-//                )
+//                viewModel.requestTest()
 //                viewModel.signUpState.observe(this) {
 //                    when(viewModel.signUpState.value) {
 //                        SignUpState.SUCCESS -> {
@@ -95,6 +62,40 @@ class SignUpActivity : AppCompatActivity() {
 //                        else -> {}
 //                    }
 //                }
+
+//                실제 사용자 등록
+                viewModel.requestSignUp(
+                    SignUpData(
+                        binding.edtJoinStudentNum.text.toString(),
+                        binding.edtJoinStudentName.text.toString(),
+                        binding.edtJoinPassword.text.toString()
+                    )
+                )
+                viewModel.signUpState.observe(this) {
+                    when(viewModel.signUpState.value) {
+                        SignUpState.SUCCESS -> {
+                            Toast.makeText(this@SignUpActivity, "사용자 등록 성공", Toast.LENGTH_SHORT).show()
+
+                            usrNum = binding.edtJoinStudentNum.toString()
+
+                            binding.layoutSignUp.isVisible = false
+                            val bundle = Bundle()
+                            bundle.putString("usrNum", binding.edtJoinStudentNum.text.toString())
+
+                            val signUpFaceFragment = SignUpFaceFragment()
+                            signUpFaceFragment.arguments = bundle
+
+                            supportFragmentManager
+                                .beginTransaction()
+                                .replace(R.id.layout_signup_face, signUpFaceFragment)
+                                .commit()
+                        }
+                        SignUpState.FAIL -> {
+                            Toast.makeText(this@SignUpActivity, "사용자 등록 실패", Toast.LENGTH_SHORT).show()
+                        }
+                        else -> {}
+                    }
+                }
             }
             else {
                 Toast.makeText(this@SignUpActivity, "아이디, 비밀번호 입력하세요", Toast.LENGTH_SHORT).show()
