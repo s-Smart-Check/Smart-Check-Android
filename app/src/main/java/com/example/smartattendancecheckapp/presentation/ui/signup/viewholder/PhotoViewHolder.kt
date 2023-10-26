@@ -6,19 +6,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.smartattendancecheckapp.databinding.ItemPhotoBinding
 
 class PhotoViewHolder(
-    private val binding: ItemPhotoBinding
+    private val binding: ItemPhotoBinding,
+    private val onRemovePhotoClick: (position: Int) -> Unit = { _ -> }
 ) : RecyclerView.ViewHolder(binding.root) {
 
     init {
         // 등록한 이미지 제거
         binding.btnRemoveEnrollPhoto.setOnClickListener {
-
+            onRemovePhotoClick(adapterPosition)
         }
     }
 
     fun bind(uri: Uri) {
-
-        Log.d("uri", "$uri")
 
         binding.apply {
             ivEnrollPhoto.setImageURI(uri)

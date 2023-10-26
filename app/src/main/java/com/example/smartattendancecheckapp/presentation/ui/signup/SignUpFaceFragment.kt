@@ -37,7 +37,8 @@ class SignUpFaceFragment : Fragment() {
     private var photoMultiPartList = mutableListOf<MultipartBody.Part>()
     private lateinit var viewModel: SignUpFaceViewModel
     private var pictureUri: Uri? = null
-    private val photoAdapter = PhotoAdapter()
+    private var uploadPhotoCnt = 0
+    private val photoAdapter = PhotoAdapter( onRemovePhotoClick = { position: Int -> removeUploadImage(position) })
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -59,8 +60,13 @@ class SignUpFaceFragment : Fragment() {
 
         // 사진 추가 버튼 클릭 시
         binding.btnCamera.setOnClickListener {
-            pictureUri = receivedValue1?.let { it1 -> createImageFile(it1) }
-            getTakePicture.launch(pictureUri)
+            if (uploadPhotoCnt >= 6) {
+                Toast.makeText(requireContext(), "사진은 6장까지 등록 가능합니다.", Toast.LENGTH_SHORT).show()
+            }
+            else {
+                pictureUri = receivedValue1?.let { it1 -> createImageFile(it1) }
+                getTakePicture.launch(pictureUri)
+            }
         }
 
         binding.btnEnroll.setOnClickListener {
@@ -81,20 +87,9 @@ class SignUpFaceFragment : Fragment() {
         photoMultiPartList.add(body)
         viewModel.addUploadPhoto(pictureUri)
         viewModel.uploadPhotoList.observe(viewLifecycleOwner) {
-            Log.d("이미지 리스트", "$it")
+            uploadPhotoCnt = viewModel.uploadPhotoList.value!!.size
             photoAdapter.submitList(it.toList())
         }
-
-//        if(it) {
-//            when(photoIndexSignUP) {
-//                1 -> pictureUri.let { binding.ivSignupPhoto1.setImageURI(pictureUri) }
-//                2 -> pictureUri.let { binding.ivSignupPhoto2.setImageURI(pictureUri) }
-//                3 -> pictureUri.let { binding.ivSignupPhoto3.setImageURI(pictureUri) }
-//                4 -> pictureUri.let { binding.ivSignupPhoto4.setImageURI(pictureUri) }
-//                5 -> pictureUri.let { binding.ivSignupPhoto5.setImageURI(pictureUri) }
-//                6 -> pictureUri.let { binding.ivSignupPhoto6.setImageURI(pictureUri) }
-//            }
-//        }
     }
 
     // 절대경로 변환
@@ -133,5 +128,9 @@ class SignUpFaceFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun removeUploadImage(position: Int) {
+        viewModel.removeUploadPhoto(position)
     }
 }

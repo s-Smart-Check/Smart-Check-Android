@@ -46,11 +46,16 @@ class SignUpFaceViewModel @Inject constructor(
     fun addUploadPhoto(uri: Uri?) {
         if (_uploadPhotoList.value.isNullOrEmpty()) {
             _uploadPhotoList.value = mutableListOf(uri!!)
-            Log.d("뷰모델 이미지 리스트", "${_uploadPhotoList.value}")
         }
         else {
             _uploadPhotoList.value!!.add(uri!!)
-            Log.d("뷰모델 이미지 리스트", "${_uploadPhotoList.value}")
         }
+    }
+
+    fun removeUploadPhoto(position: Int) {
+        val selectedPhotoList: MutableList<Uri> = _uploadPhotoList.value!!
+
+        selectedPhotoList.removeAt(position)
+        _uploadPhotoList.value = selectedPhotoList
     }
 }
