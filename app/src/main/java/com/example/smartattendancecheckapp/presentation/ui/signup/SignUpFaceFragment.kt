@@ -15,7 +15,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.smartattendancecheckapp.databinding.FragmentSignUpFaceBinding
+import com.example.smartattendancecheckapp.presentation.ui.attendcheck.AttendCheckViewModel
+import com.example.smartattendancecheckapp.presentation.ui.signup.adapter.PhotoAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -31,7 +35,9 @@ class SignUpFaceFragment : Fragment() {
 
     private lateinit var binding : FragmentSignUpFaceBinding
     private var photoMultiPartList = mutableListOf<MultipartBody.Part>()
-    val viewModel: SignUpFaceViewModel by viewModels()
+    private lateinit var viewModel: SignUpFaceViewModel
+    private var pictureUri: Uri? = null
+    private val photoAdapter = PhotoAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,8 +51,11 @@ class SignUpFaceFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         val receivedValue1 = arguments?.getString("usrNum")
+        viewModel = ViewModelProvider(this)[SignUpFaceViewModel::class.java]
+
+        binding.rvPhotos.adapter = photoAdapter
+        binding.rvPhotos.layoutManager = GridLayoutManager(requireContext(), 3)
 
         // 사진 추가 버튼 클릭 시
         binding.btnCamera.setOnClickListener {
@@ -62,50 +71,40 @@ class SignUpFaceFragment : Fragment() {
         }
     }
 
-    // 요청하고자 하는 권한들
-    private val permission = arrayOf(Manifest.permission.CAMERA)
-
-    // 권한을 허용하도록 요청
-    private val requestPermission = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { results ->
-        results.forEach {
-            if(!it.value) {
-                Toast.makeText(requireContext(), "권한 허용 필요", Toast.LENGTH_SHORT).show()
-                requireActivity().onBackPressed()
-            }
-        }
-    }
-
     // 카메라를 실행한 후 찍은 사진을 저장
-    var pictureUri: Uri? = null
     private val getTakePicture = registerForActivityResult(ActivityResultContracts.TakePicture()) {
 
         val file = File(absolutelyPath(pictureUri, requireContext()))
-
         val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
         val body = MultipartBody.Part.createFormData("profile", file.name, requestFile)
 
         photoMultiPartList.add(body)
-
-        if(it) {
-            when(photoIndexSignUP) {
-                1 -> pictureUri.let { binding.ivSignupPhoto1.setImageURI(pictureUri) }
-                2 -> pictureUri.let { binding.ivSignupPhoto2.setImageURI(pictureUri) }
-                3 -> pictureUri.let { binding.ivSignupPhoto3.setImageURI(pictureUri) }
-                4 -> pictureUri.let { binding.ivSignupPhoto4.setImageURI(pictureUri) }
-                5 -> pictureUri.let { binding.ivSignupPhoto5.setImageURI(pictureUri) }
-                6 -> pictureUri.let { binding.ivSignupPhoto6.setImageURI(pictureUri) }
-            }
+        viewModel.addUploadPhoto(pictureUri)
+        viewModel.uploadPhotoList.observe(viewLifecycleOwner) {
+            Log.d("이미지 리스트", "$it")
+            photoAdapter.submitList(it.toList())
         }
+
+//        if(it) {
+//            when(photoIndexSignUP) {
+//                1 -> pictureUri.let { binding.ivSignupPhoto1.setImageURI(pictureUri) }
+//                2 -> pictureUri.let { binding.ivSignupPhoto2.setImageURI(pictureUri) }
+//                3 -> pictureUri.let { binding.ivSignupPhoto3.setImageURI(pictureUri) }
+//                4 -> pictureUri.let { binding.ivSignupPhoto4.setImageURI(pictureUri) }
+//                5 -> pictureUri.let { binding.ivSignupPhoto5.setImageURI(pictureUri) }
+//                6 -> pictureUri.let { binding.ivSignupPhoto6.setImageURI(pictureUri) }
+//            }
+//        }
     }
 
     // 절대경로 변환
     private fun absolutelyPath(path: Uri?, context : Context): String {
-        var proj: Array<String> = arrayOf(MediaStore.Images.Media.DATA)
-        var c: Cursor? = context.contentResolver.query(path!!, proj, null, null, null)
-        var index = c?.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+        val proj: Array<String> = arrayOf(MediaStore.Images.Media.DATA)
+        val c: Cursor? = context.contentResolver.query(path!!, proj, null, null, null)
+        val index = c?.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
         c?.moveToFirst()
 
-        var result = c?.getString(index!!)
+        val result = c?.getString(index!!)
 
         return result!!
     }

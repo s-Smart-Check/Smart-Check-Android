@@ -21,9 +21,9 @@ object NetworkModule {
 //    private const val BASEURL = "http://192.168.137.109:8080/"
 //    private const val BASEURL = "http://192.168.137.29:8080"
 //    private const val BASEURL = "http://192.168.137.100:8080/"
-    private const val BASEURL = "http://172.16.38.213:8080/"
+//    private const val BASEURL = "http://172.16.38.213:8080/"
 
-//    private const val BASEURL: String = "https://api.chucknorris.io/"
+    private const val BASEURL: String = "https://api.chucknorris.io/"
 
     @Singleton
     @Provides

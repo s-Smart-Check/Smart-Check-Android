@@ -1,5 +1,7 @@
 package com.example.smartattendancecheckapp.presentation.ui.signup
 
+import android.net.Uri
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -23,6 +25,9 @@ class SignUpFaceViewModel @Inject constructor(
     private val _enrollFaceState = MutableLiveData<EnrollFaceState>()
     val enrollFaceState: LiveData<EnrollFaceState> = _enrollFaceState
 
+    private val _uploadPhotoList = MutableLiveData<MutableList<Uri>>()
+    val uploadPhotoList: LiveData<MutableList<Uri>> = _uploadPhotoList
+
     fun requestEnrollFace(
         studentNum: String,
         imageFiles: List<MultipartBody.Part>
@@ -35,6 +40,17 @@ class SignUpFaceViewModel @Inject constructor(
                 .onFailure {
                     _enrollFaceState.value = EnrollFaceState.FAIL
                 }
+        }
+    }
+
+    fun addUploadPhoto(uri: Uri?) {
+        if (_uploadPhotoList.value.isNullOrEmpty()) {
+            _uploadPhotoList.value = mutableListOf(uri!!)
+            Log.d("뷰모델 이미지 리스트", "${_uploadPhotoList.value}")
+        }
+        else {
+            _uploadPhotoList.value!!.add(uri!!)
+            Log.d("뷰모델 이미지 리스트", "${_uploadPhotoList.value}")
         }
     }
 }
