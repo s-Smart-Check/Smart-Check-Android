@@ -19,6 +19,6 @@
         android:id="@+id/navigation_enroll_face"
         android:name="com.example.smartattendancecheckapp.presentation.ui.enrollface.SignUpFaceFragment"
         android:label="EnrollFaceFragment/"
-        tools:layout="@layout/fragment_sign_up_face">
+        tools:layout="@layout/fragment_enroll_face">
     </fragment>
 </navigation>

@@ -57,6 +57,14 @@ class AttendCheckFragment : Fragment() {
 //            binding.attendCheckProfessor.text=""
 //        }
 
+        binding.btnCheckAttend.setOnClickListener {
+//             테스트 통신
+            viewModel.requestTest()
+
+//            실제 통신
+//            viewModel.requestAttendCheck(StudentAttendanceData(usrNum))
+        }
+
         binding.refreshLayout.setOnRefreshListener {
             // 실제 통신
 //            NetWorkModule.retrofitService.requestAttendanceInfo(StudentAttendanceData(usrNum)).enqueue(object : retrofit2.Callback<StudentAttendanceRes> {
@@ -116,19 +124,20 @@ class AttendCheckFragment : Fragment() {
 //            })
 
 //             테스트 통신
-//            viewModel.requestTest()
+            viewModel.requestTest()
 
 //            실제 통신
-            viewModel.requestAttendCheck(StudentAttendanceData(usrNum))
+//            viewModel.requestAttendCheck(StudentAttendanceData(usrNum))
 
             viewModel.studentAttendanceRes.observe(viewLifecycleOwner) { attendanceInfo ->
                 when(attendanceInfo.attendance) {
                     true -> {
                         binding.attendCheckImage.setImageResource(R.drawable.ic_baseline_check_circle_24)
-                        binding.testText.text = "출석 완료"
+//                        binding.btnCheckAttend.setBackgroundColor(android.graphics.Color.parseColor("#8900ff"))
+                        binding.btnCheckAttend.setBackgroundResource(R.drawable.color_attended)
 
                         binding.attendCheckClassName.text= attendanceInfo.className
-                        binding.attendCheckProfessor.text="${attendanceInfo.professor}" + " 교수님"
+                        binding.attendCheckProfessor.text= attendanceInfo.professor
 
                         binding.refreshLayout.isRefreshing = false
                     }
@@ -136,7 +145,6 @@ class AttendCheckFragment : Fragment() {
                         Toast.makeText(activity, "출석 실패", Toast.LENGTH_SHORT).show()
 
                         binding.attendCheckImage.setImageResource(R.drawable.ic_baseline_cancel_24)
-                        binding.testText.text = ""
 
                         binding.attendCheckClassName.text=""
                         binding.attendCheckProfessor.text=""

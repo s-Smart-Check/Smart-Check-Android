@@ -15,7 +15,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.smartattendancecheckapp.databinding.FragmentSignUpFaceBinding
+import com.example.smartattendancecheckapp.databinding.FragmentEnrollFaceBinding
 import com.example.smartattendancecheckapp.presentation.ui.signup.USER_NUMBER
 import com.example.smartattendancecheckapp.presentation.ui.signup.adapter.PhotoAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -29,7 +29,7 @@ var photoIndexSignUP: Int = 0
 @AndroidEntryPoint
 class SignUpFaceFragment : Fragment() {
 
-    private lateinit var binding : FragmentSignUpFaceBinding
+    private lateinit var binding : FragmentEnrollFaceBinding
     private var photoMultiPartList = mutableListOf<MultipartBody.Part>()
     private lateinit var viewModel: SignUpFaceViewModel
     private var pictureUri: Uri? = null
@@ -41,7 +41,7 @@ class SignUpFaceFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentSignUpFaceBinding.inflate(inflater, container, false)
+        binding = FragmentEnrollFaceBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -61,15 +61,12 @@ class SignUpFaceFragment : Fragment() {
             }
             else {
                 pictureUri = createImageFile(USER_NUMBER)
-                Log.d("pictureUri", "$pictureUri")
                 getTakePicture.launch(pictureUri)
             }
         }
 
         binding.btnEnroll.setOnClickListener {
-            if (receivedValue1 != null) {
-                sendImage(receivedValue1, photoMultiPartList)
-            }
+            sendImage(USER_NUMBER, photoMultiPartList)
             requireActivity().onBackPressed()
         }
     }

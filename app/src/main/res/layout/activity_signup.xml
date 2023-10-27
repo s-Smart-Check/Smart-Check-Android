@@ -27,7 +27,7 @@
                 android:layout_width="150sp"
                 android:layout_height="150sp"
                 android:layout_marginTop="100dp"
-                android:src="@drawable/uswlogo"
+                android:src="@drawable/uswlogo_circle"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
