@@ -14,83 +14,89 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.NavController
-import androidx.navigation.fragment.findNavController
-import com.example.smartattendancecheckapp.R
-import com.example.smartattendancecheckapp.databinding.FragmentEnrollFaceBinding
-import com.example.smartattendancecheckapp.presentation.ui.login.usrNum
-import com.example.smartattendancecheckapp.presentation.ui.signup.EnrollFaceState
+import androidx.recyclerview.widget.GridLayoutManager
+import com.example.smartattendancecheckapp.databinding.FragmentSignUpFaceBinding
+import com.example.smartattendancecheckapp.presentation.ui.signup.USER_NUMBER
+import com.example.smartattendancecheckapp.presentation.ui.signup.adapter.PhotoAdapter
+import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import java.io.File
 
-var photoIndexEnroll: Int = 0
+var photoIndexSignUP: Int = 0
 
-class EnrollFaceFragment : Fragment() {
+@AndroidEntryPoint
+class SignUpFaceFragment : Fragment() {
 
-    private lateinit var binding : FragmentEnrollFaceBinding
-    private lateinit var navController: NavController
+    private lateinit var binding : FragmentSignUpFaceBinding
     private var photoMultiPartList = mutableListOf<MultipartBody.Part>()
-    private val viewModel = ViewModelProvider(this)[EnrollFaceViewModel::class.java]
+    private lateinit var viewModel: SignUpFaceViewModel
+    private var pictureUri: Uri? = null
+    private var uploadPhotoCnt = 0
+    private val photoAdapter = PhotoAdapter( onRemovePhotoClick = { position: Int -> removeUploadImage(position) })
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentEnrollFaceBinding.inflate(inflater, container, false)
+        binding = FragmentSignUpFaceBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        navController = findNavController()
+        val receivedValue1 = arguments?.getString("usrNum")
+        viewModel = ViewModelProvider(this)[SignUpFaceViewModel::class.java]
+
+        binding.rvPhotos.adapter = photoAdapter
+        binding.rvPhotos.layoutManager = GridLayoutManager(requireContext(), 3)
 
         // 사진 추가 버튼 클릭 시
         binding.btnCamera.setOnClickListener {
-            pictureUri = createImageFile(usrNum)
-            getTakePicture.launch(pictureUri)
+            if (uploadPhotoCnt >= 6) {
+                Toast.makeText(requireContext(), "사진은 6장까지 등록 가능합니다.", Toast.LENGTH_SHORT).show()
+            }
+            else {
+                pictureUri = createImageFile(USER_NUMBER)
+                Log.d("pictureUri", "$pictureUri")
+                getTakePicture.launch(pictureUri)
+            }
         }
 
         binding.btnEnroll.setOnClickListener {
-            sendImage(usrNum, photoMultiPartList)
-            navController.navigate(R.id.action_navigation_enroll_to_navigation_attend_check)
-
+            if (receivedValue1 != null) {
+                sendImage(receivedValue1, photoMultiPartList)
+            }
+            requireActivity().onBackPressed()
         }
     }
 
     // 카메라를 실행한 후 찍은 사진을 저장
-    private var pictureUri: Uri? = null
     private val getTakePicture = registerForActivityResult(ActivityResultContracts.TakePicture()) {
 
         val file = File(absolutelyPath(pictureUri, requireContext()))
-
         val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
         val body = MultipartBody.Part.createFormData("profile", file.name, requestFile)
 
         photoMultiPartList.add(body)
-
-        if(it) {
-            when(photoIndexEnroll) {
-                1 -> pictureUri.let { binding.ivEnrollPhoto1.setImageURI(pictureUri) }
-                2 -> pictureUri.let { binding.ivEnrollPhoto2.setImageURI(pictureUri) }
-                3 -> pictureUri.let { binding.ivEnrollPhoto3.setImageURI(pictureUri) }
-                4 -> pictureUri.let { binding.ivEnrollPhoto4.setImageURI(pictureUri) }
-                5 -> pictureUri.let { binding.ivEnrollPhoto5.setImageURI(pictureUri) }
-                6 -> pictureUri.let { binding.ivEnrollPhoto6.setImageURI(pictureUri) }
-            }
+        viewModel.addUploadPhoto(pictureUri)
+        viewModel.uploadPhotoList.observe(viewLifecycleOwner) {
+            uploadPhotoCnt = viewModel.uploadPhotoList.value!!.size
+            photoAdapter.submitList(it.toList())
         }
     }
 
     // 절대경로 변환
-    fun absolutelyPath(path: Uri?, context : Context): String {
-        var proj: Array<String> = arrayOf(MediaStore.Images.Media.DATA)
-        var c: Cursor? = context.contentResolver.query(path!!, proj, null, null, null)
-        var index = c?.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+    private fun absolutelyPath(path: Uri?, context : Context): String {
+        val proj: Array<String> = arrayOf(MediaStore.Images.Media.DATA)
+        val c: Cursor? = context.contentResolver.query(path!!, proj, null, null, null)
+        val index = c?.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
         c?.moveToFirst()
 
-        var result = c?.getString(index!!)
+        val result = c?.getString(index!!)
 
         return result!!
     }
@@ -99,9 +105,8 @@ class EnrollFaceFragment : Fragment() {
     // 이미지 생성
     private fun createImageFile(studentNum: String): Uri? {
         val content = ContentValues().apply {
-            photoIndexEnroll += 1
-            Log.d("사진 생성", "${studentNum}_$photoIndexEnroll")
-            put(MediaStore.Images.Media.DISPLAY_NAME, "${studentNum}_$photoIndexEnroll.jpg")
+            photoIndexSignUP += 1
+            put(MediaStore.Images.Media.DISPLAY_NAME, "${studentNum}_$photoIndexSignUP.jpg")
             put(MediaStore.Images.Media.MIME_TYPE, "image/jpg")
         }
         return requireContext().contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, content)
@@ -122,4 +127,7 @@ class EnrollFaceFragment : Fragment() {
         }
     }
 
+    private fun removeUploadImage(position: Int) {
+        viewModel.removeUploadPhoto(position)
+    }
 }

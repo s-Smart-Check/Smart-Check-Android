@@ -8,4 +8,8 @@
         android:id="@+id/navigation_attend_check"
         android:icon="@drawable/attend_check"
         android:title="출결 확인" />
+    <item
+        android:id="@+id/navigation_enroll_face"
+        android:icon="@drawable/ic_btn_camera"
+        android:title="얼굴 등록" />
 </menu>

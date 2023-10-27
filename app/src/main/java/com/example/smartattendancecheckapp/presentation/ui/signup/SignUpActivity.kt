@@ -10,11 +10,12 @@ import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import com.example.smartattendancecheckapp.R
 import com.example.smartattendancecheckapp.databinding.ActivitySignupBinding
-import com.example.smartattendancecheckapp.domain.model.request.SignUpData
+import com.example.smartattendancecheckapp.presentation.ui.enrollface.SignUpFaceFragment
 import com.example.smartattendancecheckapp.presentation.ui.login.usrNum
 import dagger.hilt.android.AndroidEntryPoint
 
 var photoIndex: Int = 0
+var USER_NUMBER = ""
 
 @AndroidEntryPoint
 class SignUpActivity : AppCompatActivity() {
@@ -45,8 +46,12 @@ class SignUpActivity : AppCompatActivity() {
                             usrNum = binding.edtJoinStudentNum.toString()
 
                             binding.layoutSignUp.isVisible = false
+                            USER_NUMBER = binding.edtJoinStudentNum.text.toString()
+
                             val bundle = Bundle()
                             bundle.putString("usrNum", binding.edtJoinStudentNum.text.toString())
+
+
 
                             val signUpFaceFragment = SignUpFaceFragment()
                             signUpFaceFragment.arguments = bundle

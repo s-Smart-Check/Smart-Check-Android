@@ -9,9 +9,10 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import com.example.smartattendancecheckapp.databinding.FragmentCalendarCheckBinding
 import com.example.smartattendancecheckapp.domain.model.request.AttendanceCalendar
-import com.example.smartattendancecheckapp.presentation.ui.enrollface.EnrollFaceViewModel
 import com.example.smartattendancecheckapp.presentation.ui.login.usrNum
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class CalendarCheckFragment : Fragment() {
 
     private lateinit var binding: FragmentCalendarCheckBinding

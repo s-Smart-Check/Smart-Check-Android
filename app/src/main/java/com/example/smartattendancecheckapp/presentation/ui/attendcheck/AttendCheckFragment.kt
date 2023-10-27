@@ -57,10 +57,6 @@ class AttendCheckFragment : Fragment() {
 //            binding.attendCheckProfessor.text=""
 //        }
 
-        binding.attendCheckBtnAddFace.setOnClickListener {
-            findNavController().navigate(R.id.action_attent_check_to_enroll)
-        }
-
         binding.refreshLayout.setOnRefreshListener {
             // 실제 통신
 //            NetWorkModule.retrofitService.requestAttendanceInfo(StudentAttendanceData(usrNum)).enqueue(object : retrofit2.Callback<StudentAttendanceRes> {
