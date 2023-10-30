@@ -133,7 +133,6 @@ class AttendCheckFragment : Fragment() {
                 when(attendanceInfo.attendance) {
                     true -> {
                         binding.attendCheckImage.setImageResource(R.drawable.ic_baseline_check_circle_24)
-//                        binding.btnCheckAttend.setBackgroundColor(android.graphics.Color.parseColor("#8900ff"))
                         binding.btnCheckAttend.setBackgroundResource(R.drawable.color_attended)
 
                         binding.attendCheckClassName.text= attendanceInfo.className
