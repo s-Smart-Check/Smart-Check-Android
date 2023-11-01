@@ -14,6 +14,13 @@ class EnrollFaceRepositoryImpl @Inject constructor(
         imageFile: List<MultipartBody.Part>,
     ): Result<String> {
         return try {
+//            val response = api.sendImage(studentNum, imageFile)
+//            when {
+//                response.isSuccessful -> Result.success(response.body()!!)
+//                else -> {
+//                    Result.failure(HttpError(response.code(), response.errorBody()?.string() ?: ""))
+//                }
+//            }
             val response = api.sendImage(studentNum, imageFile)
             when {
                 response.isSuccessful -> Result.success(response.body()!!)

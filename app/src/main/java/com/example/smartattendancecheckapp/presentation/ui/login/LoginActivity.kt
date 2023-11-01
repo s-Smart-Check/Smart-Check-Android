@@ -45,34 +45,12 @@ class LoginActivity : AppCompatActivity() {
                 usrNum = binding.edtLoginStudentNum.toString()
 
 //                테스트용
-                viewModel.requestTest()
-                viewModel.loginState.observe(this) {
-                    when(viewModel.loginState.value) {
-                        LoginState.SUCCESS -> {
-                            USER_NUMBER = binding.edtLoginStudentNum.text.toString()
-
-                            Toast.makeText(this@LoginActivity, "로그인 성공", Toast.LENGTH_SHORT).show()
-                            val intent = Intent(this@LoginActivity, MainActivity2::class.java)
-                            startActivity(intent)
-                        }
-                        LoginState.FAIL -> {
-                            Toast.makeText(this@LoginActivity, "로그인 실패", Toast.LENGTH_SHORT).show()
-                        }
-                        else -> {}
-                    }
-                }
-
-//                실제 로그인
-//                viewModel.requestLogin(
-//                    LoginData(
-//                        binding.edtLoginStudentNum.text.toString(),
-//                        binding.edtLoginPassword.text.toString()
-//                    )
-//                )
+//                viewModel.requestTest()
 //                viewModel.loginState.observe(this) {
 //                    when(viewModel.loginState.value) {
 //                        LoginState.SUCCESS -> {
-//                            usrNum = binding.edtLoginStudentNum.text.toString()
+//                            USER_NUMBER = binding.edtLoginStudentNum.text.toString()
+//
 //                            Toast.makeText(this@LoginActivity, "로그인 성공", Toast.LENGTH_SHORT).show()
 //                            val intent = Intent(this@LoginActivity, MainActivity2::class.java)
 //                            startActivity(intent)
@@ -83,6 +61,28 @@ class LoginActivity : AppCompatActivity() {
 //                        else -> {}
 //                    }
 //                }
+
+//                실제 로그인
+                viewModel.requestLogin(
+                    LoginData(
+                        binding.edtLoginStudentNum.text.toString(),
+                        binding.edtLoginPassword.text.toString()
+                    )
+                )
+                viewModel.loginState.observe(this) {
+                    when(viewModel.loginState.value) {
+                        LoginState.SUCCESS -> {
+                            usrNum = binding.edtLoginStudentNum.text.toString()
+                            Toast.makeText(this@LoginActivity, "로그인 성공", Toast.LENGTH_SHORT).show()
+                            val intent = Intent(this@LoginActivity, MainActivity2::class.java)
+                            startActivity(intent)
+                        }
+                        LoginState.FAIL -> {
+                            Toast.makeText(this@LoginActivity, "로그인 실패", Toast.LENGTH_SHORT).show()
+                        }
+                        else -> {}
+                    }
+                }
             }
             // 입력 값이 없는 경우
             else { Toast.makeText(this@LoginActivity, "아이디, 비밀번호 입력하세요", Toast.LENGTH_SHORT).show() }

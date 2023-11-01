@@ -2,14 +2,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/navigation_calendar"
-        android:icon="@drawable/calendar_icon"
+        android:icon="@drawable/ic_calendar"
+        android:checked="true"
         android:title="날짜 별 출결 확인" />
     <item
         android:id="@+id/navigation_attend_check"
-        android:icon="@drawable/attend_check"
+        android:icon="@drawable/ic_attend_check"
         android:title="출결 확인" />
     <item
         android:id="@+id/navigation_enroll_face"
-        android:icon="@drawable/ic_btn_camera"
+        android:icon="@drawable/ic_camera"
         android:title="얼굴 등록" />
 </menu>

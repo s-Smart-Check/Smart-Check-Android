@@ -59,10 +59,10 @@ class AttendCheckFragment : Fragment() {
 
         binding.btnCheckAttend.setOnClickListener {
 //             테스트 통신
-            viewModel.requestTest()
+//            viewModel.requestTest()
 
 //            실제 통신
-//            viewModel.requestAttendCheck(StudentAttendanceData(usrNum))
+            viewModel.requestAttendCheck(StudentAttendanceData(usrNum))
         }
 
         binding.refreshLayout.setOnRefreshListener {
@@ -124,43 +124,44 @@ class AttendCheckFragment : Fragment() {
 //            })
 
 //             테스트 통신
-            viewModel.requestTest()
+//            viewModel.requestTest()
 
 //            실제 통신
-//            viewModel.requestAttendCheck(StudentAttendanceData(usrNum))
+            viewModel.requestAttendCheck(StudentAttendanceData(usrNum))
 
-            viewModel.studentAttendanceRes.observe(viewLifecycleOwner) { attendanceInfo ->
-                when(attendanceInfo.attendance) {
-                    true -> {
-                        binding.attendCheckImage.setImageResource(R.drawable.ic_baseline_check_circle_24)
-                        binding.btnCheckAttend.setBackgroundResource(R.drawable.color_attended)
+        }
 
-                        binding.attendCheckClassName.text= attendanceInfo.className
-                        binding.attendCheckProfessor.text= attendanceInfo.professor
+        viewModel.studentAttendanceRes.observe(viewLifecycleOwner) { attendanceInfo ->
+            when(attendanceInfo.attendance) {
+                true -> {
+                    binding.attendCheckImage.setImageResource(R.drawable.ic_baseline_check_circle_24)
+                    binding.btnCheckAttend.setBackgroundResource(R.drawable.color_attended)
 
-                        binding.refreshLayout.isRefreshing = false
-                    }
-                    false -> {
-                        Toast.makeText(activity, "출석 실패", Toast.LENGTH_SHORT).show()
+                    binding.attendCheckClassName.text= attendanceInfo.className
+                    binding.attendCheckProfessor.text= attendanceInfo.professor
 
-                        binding.attendCheckImage.setImageResource(R.drawable.ic_baseline_cancel_24)
-
-                        binding.attendCheckClassName.text=""
-                        binding.attendCheckProfessor.text=""
-
-                        binding.attendCheckCardviewWarning.isVisible = false
-                        binding.refreshLayout.isRefreshing = false
-                    }
+                    binding.refreshLayout.isRefreshing = false
                 }
+                false -> {
+                    Toast.makeText(activity, "출석 실패", Toast.LENGTH_SHORT).show()
 
-                when(attendanceInfo.state) {
-                    0 -> {
-                        binding.attendCheckCardviewWarning.isVisible = false
-                    }
-                    1 -> {
-                        Toast.makeText(activity, "얼굴 재등록 필요!!", Toast.LENGTH_SHORT).show()
-                        binding.attendCheckCardviewWarning.isVisible = true
-                    }
+                    binding.attendCheckImage.setImageResource(R.drawable.ic_baseline_cancel_24)
+
+                    binding.attendCheckClassName.text=""
+                    binding.attendCheckProfessor.text=""
+
+                    binding.attendCheckCardviewWarning.isVisible = false
+                    binding.refreshLayout.isRefreshing = false
+                }
+            }
+
+            when(attendanceInfo.state) {
+                0 -> {
+                    binding.attendCheckCardviewWarning.isVisible = false
+                }
+                1 -> {
+                    Toast.makeText(activity, "얼굴 재등록 필요!!", Toast.LENGTH_SHORT).show()
+                    binding.attendCheckCardviewWarning.isVisible = true
                 }
             }
         }
