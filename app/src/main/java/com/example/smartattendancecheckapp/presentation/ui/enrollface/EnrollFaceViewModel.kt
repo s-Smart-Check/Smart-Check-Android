@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.smartattendancecheckapp.domain.usecase.RequestEnrollFaceUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import okhttp3.MultipartBody
 import javax.inject.Inject
 
@@ -31,7 +32,7 @@ class SignUpFaceViewModel @Inject constructor(
         studentNum: String,
         imageFiles: List<MultipartBody.Part>
     ) {
-        viewModelScope.launch {
+        runBlocking {
             requestEnrollFaceUseCase(studentNum, imageFiles)
                 .onSuccess {
                     _enrollFaceState.value = EnrollFaceState.SUCCESS
